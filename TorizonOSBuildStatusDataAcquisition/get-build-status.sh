@@ -31,8 +31,13 @@ function insert_into_influxdb() {
         # Jenkins Embeddable Build Status strings
         # https://plugins.jenkins.io/embeddable-build-status/#plugin-content-text-variant
         jobstatus=$(curl -s "${JENKINS_URL}?job=image-torizoncore-${job}-matrix")
-        buildstatus="${buildstatus}${job}=\"${jobstatus}\","
-        echo "Element: $job     | Value: $jobstatus"
+        if [ -n "$jobstatus" ]; then
+            buildstatus="${buildstatus}${job}=\"${jobstatus}\","
+            echo "Element: $job     | Value: $jobstatus"
+        else
+            echo "Element: $job returned an empty value, skipping this data point"
+            break
+        fi
     done
 
     # Remove trailing comma
