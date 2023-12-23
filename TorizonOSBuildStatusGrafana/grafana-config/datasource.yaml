@@ -1,0 +1,19 @@
+# This file was created following the instructions from
+# https://community.grafana.com/t/provisioning-datasources-selecting-flux-query-language/35030/2
+apiVersion: 1
+datasources:
+- orgId: 1
+  version: 3
+  name: InfluxDB
+  uid: influxdb_jenkins
+  type: influxdb
+  access: proxy
+  url: http://influxdb:8086
+  isDefault: true
+  jsonData:
+    defaultBucket: jenkinsdatabucket
+    httpMode: POST
+    organization: toradex
+    version: Flux
+  secureJsonData:
+    token: T0rizonTh3Ea&IndustrialPlatform
