@@ -97,3 +97,7 @@ networks:
     internal: true
   frontend:
     internal: false
+
+volumes:
+  grafana-storage:
+  influxdb-storage:
