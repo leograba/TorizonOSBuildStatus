@@ -12,7 +12,7 @@ ARG IMAGE_ARCH=
 ARG GPU=
 
 # DEPLOY ------------------------------------------------------------------------
-FROM --platform=linux/${IMAGE_ARCH} torizon/cog:${BASE_VERSION}
+FROM --platform=linux/${IMAGE_ARCH} torizon/chromium:${BASE_VERSION}
 
 ARG IMAGE_ARCH
 ARG GPU
