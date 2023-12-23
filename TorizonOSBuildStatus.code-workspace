@@ -25,7 +25,10 @@
 		"torizon_ip": "",
 		"host_ip": "",
 		"torizon_debug_port": "2222",
-		"torizon_workspace": "${workspaceFolder}/.."
+		"torizon_workspace": "${workspaceFolder}/..",
+		"docker_registry": "leograba",
+		"torizon_gpu": "",
+		"docker_password": "secret"
 	},
 	"launch": {
 		"configurations": [],

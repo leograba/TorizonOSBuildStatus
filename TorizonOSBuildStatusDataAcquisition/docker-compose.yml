@@ -5,3 +5,49 @@ services:
       context: .
       dockerfile: Dockerfile
     image: ${DOCKER_LOGIN}/torizon-os-build-status-data-acquisition:${TAG}
+
+################################ NOTE ################################
+# Everything below this line is meant for debugging only
+# The production Compose file is in the workspace root directory
+
+    networks:
+      - influxdbnet
+      - frontend
+    command: ["influxdb", "8086"]
+    depends_on:
+      - influxdb
+
+  influxdb:
+    image: influxdb:2.7.1-alpine
+    networks:
+      - influxdbnet
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=torizon
+      - DOCKER_INFLUXDB_INIT_PASSWORD=T0rizonEaßy2Us&
+      - DOCKER_INFLUXDB_INIT_ORG=toradex
+      - DOCKER_INFLUXDB_INIT_BUCKET=jenkinsdatabucket
+      - DOCKER_INFLUXDB_INIT_RETENTION=60m
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
+  
+  grafana:
+    image: grafana/grafana:10.1.6
+    networks:
+      - influxdbnet
+      - frontend
+    volumes:
+      - "$PWD/debug/grafana-config/grafana.ini:/etc/grafana/grafana.ini"
+      - "$PWD/debug/grafana-config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
+      - "$PWD/debug/grafana-config/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml"
+      - "$PWD/debug/grafana-config/dashboard.json:/var/lib/grafana/dashboards/dashboard.json"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+      - torizon-os-build-status-data-acquisition
+
+networks:
+  influxdbnet:
+    internal: true
+  frontend:
+    internal: false

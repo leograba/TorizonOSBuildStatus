@@ -1,30 +1,21 @@
-ARG BASE_VERSION=3.1.0-bookworm
-
-##
-# Board architecture
-# arm or arm64
-##
+# InfluxDB container version
+ARG INFLUXDB_VERSION=2.7.1
+ARG ALPINE_VERSION=3.18.4
+# Platform architecture
 ARG IMAGE_ARCH=
 
-##
-# Board GPU vendor prefix
-##
-ARG GPU=
+# Get influx CLI ------------------------------------------------------
+FROM --platform=linux/${IMAGE_ARCH} influxdb:${INFLUXDB_VERSION}-alpine AS influxCLI
 
-# DEPLOY ------------------------------------------------------------------------
-FROM --platform=linux/${IMAGE_ARCH} torizon/debian:${BASE_VERSION}
+FROM --platform=linux/${IMAGE_ARCH} alpine:${ALPINE_VERSION}
 
-ARG IMAGE_ARCH
-ARG GPU
+RUN apk add bash curl
 
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-# DO NOT REMOVE THIS LABEL: this is used for VS Code automation
-    # __torizon_packages_prod_start__
-    # __torizon_packages_prod_end__
-# DO NOT REMOVE THIS LABEL: this is used for VS Code automation
-	&& apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/*
+ENV INFLUX_CONFIGS_PATH /etc/influxdb2/influx-configs
 
+COPY --from=influxCLI /usr/local/bin/influx /usr/local/bin/
+COPY get-build-status.sh /usr/local/bin/
+COPY influx-configs $INFLUX_CONFIGS_PATH
 
 # Command executed when starting the container
-CMD [ "echo", "Generic", "Dockerfile", "Template", "successfully", "executed" ]
-
+ENTRYPOINT [ "/usr/local/bin/get-build-status.sh" ]
