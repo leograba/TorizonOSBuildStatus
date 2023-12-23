@@ -1,0 +1,4 @@
+services:
+  torizon-os-build-status-weston:
+    image: leograba/torizon-os-build-status-weston:3.2.2
+version: "3.9"
