@@ -14,5 +14,5 @@ ARG GPU=
 # DEPLOY ------------------------------------------------------------------------
 FROM --platform=linux/${IMAGE_ARCH} torizon/weston:${BASE_VERSION}
 
-COPY splash.png /splash.png
+COPY --chown=torizon:torizon splash.png /etc/xdg/weston/splash.png
 COPY weston.ini /etc/xdg/weston/
