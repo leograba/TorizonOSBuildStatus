@@ -7,7 +7,7 @@ ARG GRAFANA_VERSION=10.1.6
 ARG IMAGE_ARCH=
 
 # DEPLOY ------------------------------------------------------------------------
-FROM --platform=linux/${IMAGE_ARCH} grafana/grafana:${BASE_VERSION}
+FROM --platform=linux/${IMAGE_ARCH} grafana/grafana:${GRAFANA_VERSION}
 
 # Cofigure for the current project
 COPY grafana-config/grafana.ini /etc/grafana/grafana.ini
