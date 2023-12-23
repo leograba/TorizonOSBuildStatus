@@ -1,0 +1,85 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusDataAcquisition"
+		},
+		{
+			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusInfluxDB"
+		},
+		{
+			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusGrafana"
+		},
+		{
+			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusWeston"
+		},
+		{
+			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusBrowser"
+		}
+	],
+	"settings": {
+		"torizon_psswd": "",
+		"torizon_login": "",
+		"torizon_ip": "",
+		"host_ip": "",
+		"torizon_debug_port": "2222",
+		"torizon_workspace": "${workspaceFolder}/.."
+	},
+	"launch": {
+		"configurations": [],
+		"compounds": [
+			{
+				"name": "Launch Project ARMv8",
+				"configurations": [
+					{
+						"folder": "TorizonOSBuildStatusDataAcquisition",
+						"name": "Torizon ARMv8"
+					},
+					{
+						"folder": "TorizonOSBuildStatusInfluxDB",
+						"name": "Torizon ARMv8"
+					},
+					{
+						"folder": "TorizonOSBuildStatusGrafana",
+						"name": "Torizon ARMv8"
+					},
+					{
+						"folder": "TorizonOSBuildStatusWeston",
+						"name": "Torizon ARMv8"
+					},
+					{
+						"folder": "TorizonOSBuildStatusBrowser",
+						"name": "Torizon ARMv8"
+					}
+				]
+			},
+			{
+				"name": "Launch Project ARMv7",
+				"configurations": [
+					{
+						"folder": "TorizonOSBuildStatusDataAcquisition",
+						"name": "Torizon ARMv7"
+					},
+					{
+						"folder": "TorizonOSBuildStatusInfluxDB",
+						"name": "Torizon ARMv7"
+					},
+					{
+						"folder": "TorizonOSBuildStatusGrafana",
+						"name": "Torizon ARMv7"
+					},
+					{
+						"folder": "TorizonOSBuildStatusWeston",
+						"name": "Torizon ARMv7"
+					},
+					{
+						"folder": "TorizonOSBuildStatusBrowser",
+						"name": "Torizon ARMv7"
+					}
+				]
+			}
+		]
+	}
+}
