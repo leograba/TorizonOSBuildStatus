@@ -1,4 +1,4 @@
-ARG BASE_VERSION=3.1.0-bookworm
+ARG BASE_VERSION=3.0.2
 
 ##
 # Board architecture
@@ -12,19 +12,10 @@ ARG IMAGE_ARCH=
 ARG GPU=
 
 # DEPLOY ------------------------------------------------------------------------
-FROM --platform=linux/${IMAGE_ARCH} torizon/debian:${BASE_VERSION}
+FROM --platform=linux/${IMAGE_ARCH} torizon/cog:${BASE_VERSION}
 
 ARG IMAGE_ARCH
 ARG GPU
 
-RUN apt-get -y update && apt-get install -y --no-install-recommends \
-# DO NOT REMOVE THIS LABEL: this is used for VS Code automation
-    # __torizon_packages_prod_start__
-    # __torizon_packages_prod_end__
-# DO NOT REMOVE THIS LABEL: this is used for VS Code automation
-	&& apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/*
-
-
 # Command executed when starting the container
-CMD [ "echo", "Generic", "Dockerfile", "Template", "successfully", "executed" ]
-
+CMD [ "http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1&refresh=15m&kiosk" ]
