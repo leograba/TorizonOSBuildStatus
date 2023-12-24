@@ -9,6 +9,7 @@ services:
     command: ["influxdb", "8086"]
     depends_on:
       - influxdb
+    restart: on-failure
 
   influxdb:
     image: leograba/torizon-os-build-status-influxdb:2.7.1
@@ -24,6 +25,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
     volumes:
       - "influxdb-storage:/var/lib/influxdb2"
+    restart: on-failure
 
   grafana:
     image: leograba/torizon-os-build-status-grafana:10.1.6
@@ -37,6 +39,7 @@ services:
     depends_on:
       - influxdb
       - data-acquisition
+    restart: on-failure
 
   weston:
     image: leograba/torizon-os-build-status-weston:3.2.2
@@ -62,6 +65,7 @@ services:
       - 'c 13:* rmw'
       # ... for /dev/dri devices
       - 'c 226:* rmw'
+    restart: on-failure
 
   browser:
     image: leograba/torizon-os-build-status-browser:3.0.2
@@ -91,6 +95,7 @@ services:
       # ... for /dev/dri devices
       - 'c 226:* rmw'
     command: http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk
+    restart: on-failure
 
 networks:
   influxdbnet:
