@@ -1,0 +1,5 @@
+storage/
+tuf/
+TorizonOSBuildStatusTCB-TCB-CUSTOM/
+credentials.zip
+*.lock.yml
