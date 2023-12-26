@@ -19,6 +19,9 @@ output:
     name: Torizon OS Build Status
     description: Dashboard that displays the status of Torizon OS builds
     accept-licence: true
+    bundle:
+      # this file is copied/linked from the parent directory (the root of the workspace)
+      compose-file: docker-compose.prod.yml
   ostree:
     branch: torizon-os-build-status-tcb
     commit-subject: TorizonOSBuildStatusTCB

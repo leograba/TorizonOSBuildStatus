@@ -3,3 +3,7 @@ tuf/
 TorizonOSBuildStatusTCB-TCB-CUSTOM/
 credentials.zip
 *.lock.yml
+
+torizon*Tezi*tar
+build/
+tcb-env-setup.sh
