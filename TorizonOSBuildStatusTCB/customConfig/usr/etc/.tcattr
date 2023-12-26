@@ -1,0 +1,20 @@
+# file: avahi/avahi-daemon.conf
+# owner: 0
+# group: 0
+user::rw-
+group::r--
+other::r--
+
+# file: shadow
+# owner: 0
+# group: 0
+user::r--
+group::---
+other::---
+
+# file: .passwd_changed
+# owner: 0
+# group: 0
+user::rw-
+group::r--
+other::r--
