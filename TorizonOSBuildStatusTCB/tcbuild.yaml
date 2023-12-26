@@ -15,7 +15,10 @@ output:
   # Output section items (required).
   # ⚠️ change it for your needs
   easy-installer:
-    local: TorizonOSBuildStatusTCB-TCB-CUSTOM
+    local: build/verdin-imx8mm-Tezi_6.5.0-devel-20231224001327
+    name: Torizon OS Build Status
+    description: Dashboard that displays the status of Torizon OS builds
+    accept-licence: true
   ostree:
     branch: torizon-os-build-status-tcb
     commit-subject: TorizonOSBuildStatusTCB
