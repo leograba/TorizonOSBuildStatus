@@ -9,8 +9,7 @@ input:
     local: torizon-core-podman-verdin-imx8mm-Tezi_6.5.0-devel-20231224001327+build.0.tar
 
 customization:
-  # Customization section items.
-  splash-screen: splashScreen.png
+  splash-screen: splash.png
 
 output:
   # Output section items (required).
