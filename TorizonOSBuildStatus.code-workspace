@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "TorizonOSBuildStatusTCB"
+		},
+		{
+			"path": "TorizonOSBuildStatus3DMount"
 		}
 	],
 	"settings": {
