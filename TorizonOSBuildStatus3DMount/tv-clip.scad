@@ -37,13 +37,26 @@ module tvclip_frame(){
 }
 
 module tvclip_carving(){
-    translate([0, - 6, mallow_depth / 2]) cuboid(
-        size = [
-            mallow_width / 3 + delta,
-            mallow_height / 2,
-            tvclip_height - 2 * mallow_depth / 2],
-        anchor = BOTTOM
-    );
+    translate([0, - 6, mallow_depth / 2]){
+        cuboid(
+            size = [
+                mallow_width / 3 + delta,
+                mallow_height / 2,
+                tvclip_height - 2 * mallow_depth / 2],
+            anchor = BOTTOM
+        );
+    }
+    translate([0, 10, mallow_depth / 2]){
+        resize([
+            mallow_width / 3 - 2 * mallow_depth,
+            mallow_width / 3,
+            tvclip_height - 2 * mallow_depth / 2]
+        ) ycyl(
+            l = mallow_width / 3,
+            r = mallow_width / 3 - 2 * mallow_depth,
+            anchor = BOTTOM
+        );
+    }
 }
 
 module dovetail_carving(){
