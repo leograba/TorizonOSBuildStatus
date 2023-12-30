@@ -15,6 +15,8 @@ tvclip_height = 40;
 hdmi_connector_spacing = 50;
 // very small value for good intersection
 delta = 0.001;
+// snap tolerance
+snap_tolerance = 0.5;
 
 module tvclip(){
     // base frame to attach to the TV
@@ -72,8 +74,8 @@ module dovetail_carving(){
         diff("dovetail_snap")
         position(BOTTOM+BACK)
         prismoid(
-            size1=[mallow_width / 4 - 2 * wall_padding, mallow_height / 5],
-            size2=[mallow_width / 4 - 4 * wall_padding, mallow_height / 5],
+            size1=[mallow_width / 4 - 2 * wall_padding - snap_tolerance, mallow_height / 5],
+            size2=[mallow_width / 4 - 4 * wall_padding - snap_tolerance, mallow_height / 5],
             h = mallow_depth / 2 + delta,
             anchor = FRONT+BOTTOM
         ){
