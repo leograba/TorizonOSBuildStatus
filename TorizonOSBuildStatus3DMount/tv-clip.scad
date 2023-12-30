@@ -12,6 +12,7 @@ mallow_depth = 5;
 hole_padding = 3;
 wall_padding = 2;
 tvclip_height = 40;
+hdmi_connector_spacing = 50;
 // very small value for good intersection
 delta = 0.001;
 
@@ -47,21 +48,29 @@ module tvclip_carving(){
 
 module dovetail_carving(){
     // carving to insert and lock the dovetail
-    diff("dovetail_snap")
     prismoid(
-        // the carving can have the same height as the housing
-        // because it will also carve the carrier frame wall
-        size1=[mallow_width / 4 - 2 * wall_padding, mallow_height / 5],
-        size2=[mallow_width / 4 - 4 * wall_padding, mallow_height / 5],
+        // add extra height so that HDMI and power cables can go through it
+        size1=[mallow_width / 4 - 2 * wall_padding, hdmi_connector_spacing],
+        size2=[mallow_width / 4 - 4 * wall_padding, hdmi_connector_spacing],
         h = mallow_depth / 2 + delta,
         anchor = FRONT+BOTTOM
     ){
-        position(BOTTOM) tag("dovetail_snap") cyl(
-            length = mallow_width / 10,
-            d = wall_padding / 3,
-            rounding = wall_padding / 10,
-            orient = LEFT
-        );
+        // here are the dimensions of the carving
+        diff("dovetail_snap")
+        position(BOTTOM+BACK)
+        prismoid(
+            size1=[mallow_width / 4 - 2 * wall_padding, mallow_height / 5],
+            size2=[mallow_width / 4 - 4 * wall_padding, mallow_height / 5],
+            h = mallow_depth / 2 + delta,
+            anchor = FRONT+BOTTOM
+        ){
+            position(BOTTOM) tag("dovetail_snap") cyl(
+                length = mallow_width / 10,
+                d = wall_padding / 3,
+                rounding = wall_padding / 10,
+                orient = LEFT
+            );
+        }
     }
 }
 
