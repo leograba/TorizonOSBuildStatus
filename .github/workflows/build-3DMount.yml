@@ -1,0 +1,41 @@
+name: OpenSCAD Build
+
+on:
+  push:
+    paths:
+      - 'TorizonOSBuildStatus3DMount/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends openscad
+        mkdir -p $HOME/.local/share/OpenSCAD/libraries
+        cd $HOME/.local/share/OpenSCAD/libraries
+        wget https://github.com/BelfrySCAD/BOSL2/archive/refs/heads/master.tar.gz -O BOSL.tar.gz
+        tar -C $HOME/.local/share/OpenSCAD/libraries -xf BOSL.tar.gz
+        mv $HOME/.local/share/OpenSCAD/libraries/BOSL2-master $HOME/.local/share/OpenSCAD/libraries/BOSL2
+        wget https://github.com/nophead/NopSCADlib/archive/refs/heads/master.tar.gz -O NopSCADlib.tar.gz
+        tar -C $HOME/.local/share/OpenSCAD/libraries -xf NopSCADlib.tar.gz
+        mv $HOME/.local/share/OpenSCAD/libraries/NopSCADlib-master $HOME/.local/share/OpenSCAD/libraries/NopSCADlib
+
+    - name: Build STL files
+      run: |
+        # Replace '*.scad' with the actual pattern for your OpenSCAD files
+        for file in $(find . -name '*.scad'); do
+          echo "building STL for ${file}"
+          openscad -o "${file%.scad}.stl" "$file"
+        done
+
+    - name: Upload STL files
+      uses: actions/upload-artifact@v4
+      with:
+        name: stl-files
+        path: ./TorizonOSBuildStatus3DMount/*.stl
