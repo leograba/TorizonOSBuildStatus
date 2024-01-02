@@ -9,7 +9,7 @@ param()
 
 # TODO: we need to work with the offsets and limits
 
-$_VERSION = "0.1.0"
+$_VERSION = "0.1.1"
 
 $ErrorActionPreference = "Stop"
 

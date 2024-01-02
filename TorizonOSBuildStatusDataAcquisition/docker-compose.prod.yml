@@ -3,7 +3,7 @@ services:
     networks:
     - influxdbnet
     - frontend
-    image: leograba/torizon-os-build-status-data-acquisition:0.1.0
+    image: leograba/torizon-os-build-status-data-acquisition:0.1.1
     depends_on:
     - influxdb
     command:
