@@ -10,8 +10,15 @@ JOB_LIST=(
 )
 INFLUX_MEASUREMENT_NAME="jenkinsbuild"
 INFLUX_BUCKET_NAME="jenkinsdatabucket"
-POLL_INTERVAL_SEC=3600
-#POLL_INTERVAL_SEC=60 # for debugging
+
+if [[ -n "$DEBUG" ]]; then
+    POLL_INTERVAL_SEC=60
+    echo "Debug mode enabled"
+else
+    POLL_INTERVAL_SEC=3600
+    echo "Debug mode disabled"
+fi
+echo "Polling interval set to $POLL_INTERVAL_SEC seconds"
 
 # Trap Ctrl+C and clean up before exiting
 function cleanup() {

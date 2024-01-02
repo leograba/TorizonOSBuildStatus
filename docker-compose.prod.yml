@@ -9,6 +9,8 @@ services:
     command: ["influxdb", "8086"]
     depends_on:
       - influxdb
+    #environment:
+    #  - DEBUG=1 # set this variable to any value for debugging
     restart: on-failure
 
   influxdb:

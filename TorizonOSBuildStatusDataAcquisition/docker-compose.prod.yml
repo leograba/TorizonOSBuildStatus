@@ -9,6 +9,8 @@ services:
     command:
     - influxdb
     - "8086"
+    environment:
+    - DEBUG=1
   influxdb:
     networks:
     - influxdbnet

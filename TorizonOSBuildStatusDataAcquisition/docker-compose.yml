@@ -14,6 +14,8 @@ services:
       - influxdbnet
       - frontend
     command: ["influxdb", "8086"]
+    environment:
+      - DEBUG=1 # set this variable to any value for debugging
     depends_on:
       - influxdb
 
