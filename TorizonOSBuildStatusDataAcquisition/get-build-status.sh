@@ -27,7 +27,7 @@ function cleanup() {
     exit
 }
 
-trap cleanup SIGINT
+trap cleanup SIGINT SIGTERM
 
 function insert_into_influxdb() {
     
