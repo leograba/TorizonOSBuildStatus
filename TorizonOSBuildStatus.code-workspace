@@ -4,19 +4,19 @@
 			"path": "."
 		},
 		{
-			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusDataAcquisition"
+			"path": "TorizonOSBuildStatusDataAcquisition"
 		},
 		{
-			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusInfluxDB"
+			"path": "TorizonOSBuildStatusInfluxDB"
 		},
 		{
-			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusGrafana"
+			"path": "TorizonOSBuildStatusGrafana"
 		},
 		{
-			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusWeston"
+			"path": "TorizonOSBuildStatusWeston"
 		},
 		{
-			"path": "/tmp/TorizonOSBuildStatus/TorizonOSBuildStatusBrowser"
+			"path": "TorizonOSBuildStatusBrowser"
 		},
 		{
 			"path": "TorizonOSBuildStatusTCB"
