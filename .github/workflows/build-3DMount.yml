@@ -1,4 +1,7 @@
-name: OpenSCAD Build
+name: 3D Models
+
+env:
+  wdir: TorizonOSBuildStatus3DMount
 
 on:
   push:
@@ -8,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.wdir }}
 
     steps:
     - name: Checkout repository
@@ -28,7 +34,6 @@ jobs:
 
     - name: Build STL files
       run: |
-        # Replace '*.scad' with the actual pattern for your OpenSCAD files
         for file in $(find . -name '*.scad'); do
           echo "building STL for ${file}"
           openscad -o "${file%.scad}.stl" "$file"
@@ -38,4 +43,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: stl-files
-        path: ./TorizonOSBuildStatus3DMount/*.stl
+        path: ./${{ env.wdir }}/*.stl
