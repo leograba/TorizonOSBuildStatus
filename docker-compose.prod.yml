@@ -3,6 +3,7 @@ services:
 
   data-acquisition:
     image: leograba/torizon-os-build-status-data-acquisition:0.1.1
+    platform: linux/arm64
     networks:
       - influxdbnet
       - frontend
@@ -15,6 +16,7 @@ services:
 
   influxdb:
     image: leograba/torizon-os-build-status-influxdb:2.7.1
+    platform: linux/arm64
     networks:
       - influxdbnet
     environment:
@@ -31,6 +33,7 @@ services:
 
   grafana:
     image: leograba/torizon-os-build-status-grafana:10.1.6
+    platform: linux/arm64
     networks:
       - influxdbnet
       - frontend
@@ -45,6 +48,7 @@ services:
 
   weston:
     image: leograba/torizon-os-build-status-weston:3.2.2
+    platform: linux/arm
     # Required to get udev events from host udevd via netlink
     network_mode: host
     volumes:
@@ -71,6 +75,7 @@ services:
 
   browser:
     image: leograba/torizon-os-build-status-browser:3.0.2
+    platform: linux/arm
     environment:
       - MACHINE
     security_opt:
