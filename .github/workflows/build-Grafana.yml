@@ -2,6 +2,7 @@ name: Grafana
 
 env:
   wdir: TorizonOSBuildStatusGrafana
+  arch: arm64
 
 on:
   push:
@@ -40,7 +41,8 @@ jobs:
         with:
           push: true
           context: ${{ env.wdir }}
+          platforms: linux/${{ env.arch }}
           build-args: |
-            IMAGE_ARCH=arm64
+            IMAGE_ARCH=${{ env.arch }}
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/torizon-os-build-status-grafana:rc
