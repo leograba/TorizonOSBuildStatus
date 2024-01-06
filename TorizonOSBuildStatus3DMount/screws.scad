@@ -17,6 +17,7 @@ module single_screw(){
         drive = "torx",
         length = 7,
         thread = true,
+        blunt_start2 = false,
         anchor = TOP,
         orient = DOWN
     );
