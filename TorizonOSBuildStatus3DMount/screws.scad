@@ -6,7 +6,7 @@ include <BOSL2/std.scad>
 include <BOSL2/screws.scad>
 
 module screws(){
-    grid_copies(spacing = 15, n = [2, 3]) single_screw();
+    grid_copies(spacing = 100, n = [3, 3]) single_screw();
 }
 
 module single_screw(){
