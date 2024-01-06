@@ -101,7 +101,7 @@ module dovetail_housing(){
     // dovetail to connect the base
     cuboid(
         size = [mallow_width / 4, mallow_height / 5, mallow_depth],
-        rounding = 1,
+        rounding = 2,
         edges = [BACK],
         anchor = CENTER+FRONT
     ){
