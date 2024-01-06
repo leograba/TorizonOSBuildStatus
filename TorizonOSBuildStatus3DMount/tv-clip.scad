@@ -16,7 +16,7 @@ hdmi_connector_spacing = 50;
 // very small value for good intersection
 delta = 0.001;
 // snap tolerance
-snap_tolerance = 0.5;
+snap_tolerance = 0.25;
 
 module tvclip(){
     // base frame to attach to the TV
