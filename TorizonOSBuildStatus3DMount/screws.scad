@@ -14,8 +14,8 @@ module single_screw(){
     screw(
         "M3",
         head = "socket",
-        drive = "hex",
-        length = 10,
+        drive = "torx",
+        length = 7,
         thread = true,
         anchor = TOP,
         orient = DOWN
