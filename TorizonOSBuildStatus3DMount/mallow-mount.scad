@@ -85,11 +85,12 @@ module antenna_holder(holder_side=LEFT, holder_xpos=0){
                 // use dimensions of the antenna included in NopSCADlib
                 // to create the C-section
                 antenna_pad = (holder_side == LEFT) ? -7 : 7;
+                antenna_diameter_scaling = 1.02; // two percent
                 translate ([antenna_pad, 5, 0]){
                     tag("remove_antennas") cyl(
                         h = antenna_length(ESP201_antenna),
-                        d1 = antenna_bot_d(ESP201_antenna),
-                        d2 = antenna_top_d(ESP201_antenna)
+                        d1 = antenna_diameter_scaling * antenna_top_d(ESP201_antenna),
+                        d2 = antenna_diameter_scaling * antenna_bot_d(ESP201_antenna)
                     );
                 }
             }
