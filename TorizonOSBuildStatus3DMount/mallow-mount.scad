@@ -132,7 +132,7 @@ module dovetail_carving(){
     ){
         position(BOTTOM) tag("dovetail_snap") cyl(
             length = mallow_width / 10,
-            d = wall_padding / 3,
+            d = wall_padding / 2,
             rounding = wall_padding / 10,
             orient = LEFT
         );
