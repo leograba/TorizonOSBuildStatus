@@ -10,6 +10,7 @@ module screws(){
 }
 
 module single_screw(){
+    scale([0.98, 0.98, 1])
     screw(
         "M3",
         head = "socket",
