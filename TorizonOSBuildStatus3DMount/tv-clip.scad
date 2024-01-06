@@ -1,6 +1,5 @@
-$fa = 1;
-$fs = 0.4;
-//$fn = 64;
+$fa = $preview ? 6 : 1;
+$fs = $preview ? 0.4: 0.1;
 
 include <BOSL2/std.scad>
 
