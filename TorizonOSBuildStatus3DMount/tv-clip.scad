@@ -15,7 +15,7 @@ tvclip_front_tab = 10;
 tvclip_back_tab = 45;
 tvclip_height = 45;
 connector_spacing_height = 15;
-connector_spacing_width = mallow_width - 10;
+connector_spacing_width = mallow_width;
 // very small value for good intersection
 delta = 0.001;
 // snap tolerance
@@ -134,6 +134,21 @@ module dovetail(){
                 orient = LEFT
             );
         }
+        // these two fillets fit the rounding borders of the board mount
+        position(RIGHT+BACK)
+        fillet(
+            l = mallow_depth,
+            r = 4,
+            //orient = RIGHT,
+            spin = 90
+        );
+        position(LEFT+BACK)
+        fillet(
+            l = mallow_depth,
+            r = 4,
+            orient = DOWN,
+            spin = 90
+        );
     }
     // fillet to make a stronger join with the tvclip
     translate([0, 0, mallow_depth - delta]) fillet(
