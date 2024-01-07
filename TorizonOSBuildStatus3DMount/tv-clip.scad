@@ -11,10 +11,12 @@ mallow_depth = 5;
 hole_padding = 3;
 wall_padding = 2;
 wall_thickness = 3;
+// TV clip measurements
 tvclip_front_tab = 10;
 tvclip_back_tab = 45;
 tvclip_height = 45;
 connector_spacing_height = 15;
+// width of this connector as a fraction of the Mallow
 connector_spacing_width = mallow_width;
 // very small value for good intersection
 delta = 0.001;
@@ -61,6 +63,7 @@ module tvclip_front(lheight){
 module tvclip_carving(){
     translate([0, - wall_thickness, mallow_depth / 2]){
         diff("tvclip_carving_fillets")
+        // base to carve all but the wall
         cuboid(
             size = [
                 connector_spacing_width + delta,
@@ -69,42 +72,40 @@ module tvclip_carving(){
             anchor = BOTTOM
         ){
             // fillets to make stronger joins
+            // bottom fillet
             tag("tvclip_carving_fillets")
-            position(BOTTOM+BACK) fillet(
-                l = connector_spacing_width + 2 * delta,
-                r = 3,
-                orient = RIGHT,
-                spin = 180
-            );
-            // top fillet with slightly bigger radius to help support
+            position(BOTTOM+BACK) tvclip_carving_fillet(180);
+            // top fillet
             tag("tvclip_carving_fillets")
-            position(TOP+BACK) fillet(
-                l = connector_spacing_width + 2 * delta,
-                r = 4,
-                orient = RIGHT,
-                spin = 270
-            );
+            position(TOP+BACK) tvclip_carving_fillet(270);
+
+            // over the wall carving
+            position(BOTTOM+BACK) tvclip_carving_window(mallow_depth);
         }
     }
-    xcopies(
-        // length is wall width minus the cylinder width
-        // minus a border
-        l = mallow_width - (mallow_width / 3) - 3 * wall_thickness,
-        n = 3) tvclip_carving_cylinder();
 }
 
-module tvclip_carving_cylinder(){
-    translate([0, 10, 3 * mallow_depth / 2]){
-        resize([
-            mallow_width / 3 - 2 * mallow_depth,
-            mallow_width / 3,
-            tvclip_height - 2 * mallow_depth / 2]
-        ) ycyl(
-            l = mallow_width / 3,
-            r = mallow_width / 3 - 2 * mallow_depth,
-            anchor = BOTTOM
-        );
-    }
+module tvclip_carving_fillet(fillet_spin){
+    fillet(
+        l = connector_spacing_width + 2 * delta,
+        r = 3,
+        orient = RIGHT,
+        spin = fillet_spin
+    );
+}
+
+module tvclip_carving_window(window_depth){
+    translate([0, 0, window_depth])
+    cuboid(
+        size = [
+            connector_spacing_width - 4 * wall_thickness + delta,
+            3 * wall_thickness,
+            tvclip_height - 2 * mallow_depth + delta
+        ],
+        rounding = 4,
+        except = [FRONT, BACK],
+        anchor = BOTTOM
+    );
 }
 
 module dovetail(){
