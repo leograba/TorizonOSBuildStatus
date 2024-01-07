@@ -16,12 +16,12 @@ tvclip_front_tab = 10;
 tvclip_back_tab = 45;
 tvclip_height = 45;
 connector_spacing_height = 15;
-// width of this connector as a fraction of the Mallow
-connector_spacing_width = mallow_width;
-// very small value for good intersection
-delta = 0.001;
 // snap tolerance
 snap_tolerance = 0.25;
+// width of this connector as a fraction of the Mallow
+connector_spacing_width = mallow_width + wall_padding + snap_tolerance;
+// very small value for good intersection
+delta = 0.001;
 
 module tvclip(){
     // base frame to attach to the TV
