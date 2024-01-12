@@ -38,7 +38,7 @@ module tvclip_frame(lheight){
         size=[connector_spacing_width, tvclip_back_tab],
         // some arbitrary numbers that looked good
         wall = wall_thickness,
-        rounding = 4,
+        rounding = [0, 0, 4, 4],
         ichamfer = [6, 6, tvclip_screws_ichamfer, tvclip_screws_ichamfer],
         height = lheight + mallow_depth / 2,
         anchor = BOTTOM){
@@ -60,7 +60,7 @@ module tvclip_front(lheight){
             3 * lheight
         ],
         rounding = 4,
-        except = [TOP, BOTTOM],
+        except = [TOP, BOTTOM, BACK],
         anchor = BOTTOM+BACK);
 }
 
