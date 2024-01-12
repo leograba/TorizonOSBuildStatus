@@ -129,7 +129,7 @@ module tvclip_carving_screws(side = LEFT, offset){
         0
     ])
     screw_hole(
-        "M5", head = "flat small",
+        "M6", head = "flat small",
         length = 18,
         thread = true,
         anchor = CENTER
