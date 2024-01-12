@@ -12,9 +12,10 @@ mallow_depth = 5;
 hole_padding = 3;
 wall_padding = 2;
 wall_thickness = 3;
+height_thickness = 2 * wall_thickness;
 // TV clip measurements
-tvclip_front_tab = 10;
-tvclip_back_tab = 45;
+tvclip_front_tab = 13 + height_thickness;
+tvclip_back_tab = 45 + height_thickness;
 tvclip_height = 50;
 tvclip_screws_ichamfer = 12;
 connector_spacing_height = 15;
@@ -29,6 +30,7 @@ module tvclip(){
     // base frame to attach to the TV
     diff("tvclip_remove")
     tvclip_frame(tvclip_height){
+        position(BACK)
         tag("tvclip_remove") tvclip_carving();
     }
 }
@@ -39,7 +41,7 @@ module tvclip_frame(lheight){
         // some arbitrary numbers that looked good
         wall = wall_thickness,
         rounding = [0, 0, 4, 4],
-        ichamfer = [6, 6, tvclip_screws_ichamfer, tvclip_screws_ichamfer],
+        ichamfer = [8, 8, tvclip_screws_ichamfer, tvclip_screws_ichamfer],
         height = lheight + mallow_depth / 2,
         anchor = BOTTOM){
             position(CENTER+BOTTOM) children(0); // carving area
@@ -65,7 +67,7 @@ module tvclip_front(lheight){
 }
 
 module tvclip_carving(){
-    translate([0, - wall_thickness, mallow_depth / 2]){
+    translate([0, - height_thickness, mallow_depth / 2]){
         diff("tvclip_carving_fillets")
         // base to carve all but the wall
         cuboid(
@@ -73,7 +75,7 @@ module tvclip_carving(){
                 connector_spacing_width + delta,
                 tvclip_back_tab,
                 tvclip_height + delta],
-            anchor = BOTTOM
+            anchor = BOTTOM+BACK
         ){
             // fillets to make stronger joins
             // bottom fillet
@@ -87,8 +89,8 @@ module tvclip_carving(){
             position(BOTTOM+BACK) tvclip_carving_window(mallow_depth);
 
             //screw holes
-            position(BOTTOM+FRONT) tvclip_carving_screws(LEFT);
-            position(BOTTOM+FRONT) tvclip_carving_screws(RIGHT);
+            position(BOTTOM+FRONT) tvclip_carving_screws(LEFT, height_thickness);
+            position(BOTTOM+FRONT) tvclip_carving_screws(RIGHT, height_thickness);
         }
     }
 }
@@ -107,7 +109,7 @@ module tvclip_carving_window(window_depth){
     cuboid(
         size = [
             connector_spacing_width - 4 * wall_thickness + delta,
-            3 * wall_thickness,
+            6 * wall_thickness,
             tvclip_height - 2 * mallow_depth + delta
         ],
         rounding = 4,
@@ -116,13 +118,14 @@ module tvclip_carving_window(window_depth){
     );
 }
 
-module tvclip_carving_screws(side = LEFT){
+module tvclip_carving_screws(side = LEFT, offset){
     // use screws to adjust the distance to the TV
+    distance_offset_from_chamfer = 0.25;
     position(side)
     translate([
-        if (side == LEFT) tvclip_screws_ichamfer / 2
-        else -tvclip_screws_ichamfer / 2,
-        wall_thickness + tvclip_screws_ichamfer / 2,
+        if (side == LEFT) tvclip_screws_ichamfer / 2 - distance_offset_from_chamfer
+        else -(tvclip_screws_ichamfer / 2 - distance_offset_from_chamfer),
+        offset + tvclip_screws_ichamfer / 2 - distance_offset_from_chamfer,
         0
     ])
     screw_hole(
@@ -178,7 +181,7 @@ module dovetail(){
     }
     // fillet to make a stronger join with the tvclip
     translate([0, 0, mallow_depth - delta]) fillet(
-        l = connector_spacing_width - 2 * 4,
+        l = connector_spacing_width,
         r = 3,
         orient = RIGHT,
         spin = 90
@@ -191,7 +194,7 @@ module join_dovetail_and_tvclip(){
     // and finishing looks bad
     cube([
         connector_spacing_width,
-        4 - delta,
+        9 - delta,
         mallow_depth],
         anchor = BACK+BOTTOM
     );
