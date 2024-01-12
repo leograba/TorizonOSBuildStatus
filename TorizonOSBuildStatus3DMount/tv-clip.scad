@@ -2,6 +2,7 @@ $fa = $preview ? 6 : 1;
 $fs = $preview ? 0.4: 0.1;
 
 include <BOSL2/std.scad>
+include <BOSL2/screws.scad>
 
 mallow_width = 100;
 mallow_height = 72;
@@ -14,7 +15,8 @@ wall_thickness = 3;
 // TV clip measurements
 tvclip_front_tab = 10;
 tvclip_back_tab = 45;
-tvclip_height = 45;
+tvclip_height = 50;
+tvclip_screws_ichamfer = 12;
 connector_spacing_height = 15;
 // snap tolerance
 snap_tolerance = 0.25;
@@ -35,7 +37,9 @@ module tvclip_frame(lheight){
     rect_tube(
         size=[connector_spacing_width, tvclip_back_tab],
         // some arbitrary numbers that looked good
-        wall = wall_thickness, rounding = 4, ichamfer = 4,
+        wall = wall_thickness,
+        rounding = 4,
+        ichamfer = [6, 6, tvclip_screws_ichamfer, tvclip_screws_ichamfer],
         height = lheight + mallow_depth / 2,
         anchor = BOTTOM){
             position(CENTER+BOTTOM) children(0); // carving area
@@ -81,6 +85,10 @@ module tvclip_carving(){
 
             // over the wall carving
             position(BOTTOM+BACK) tvclip_carving_window(mallow_depth);
+
+            //screw holes
+            position(BOTTOM+FRONT) tvclip_carving_screws(LEFT);
+            position(BOTTOM+FRONT) tvclip_carving_screws(RIGHT);
         }
     }
 }
@@ -105,6 +113,23 @@ module tvclip_carving_window(window_depth){
         rounding = 4,
         except = [FRONT, BACK],
         anchor = BOTTOM
+    );
+}
+
+module tvclip_carving_screws(side = LEFT){
+    // use screws to adjust the distance to the TV
+    position(side)
+    translate([
+        if (side == LEFT) tvclip_screws_ichamfer / 2
+        else -tvclip_screws_ichamfer / 2,
+        wall_thickness + tvclip_screws_ichamfer / 2,
+        0
+    ])
+    screw_hole(
+        "M5", head = "flat small",
+        length = 18,
+        thread = true,
+        anchor = CENTER
     );
 }
 
