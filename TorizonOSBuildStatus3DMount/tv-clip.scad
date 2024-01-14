@@ -14,10 +14,11 @@ wall_padding = 2;
 wall_thickness = 3;
 height_thickness = 2 * wall_thickness;
 // TV clip measurements
-tvclip_front_tab = 13 + height_thickness;
+tvclip_front_tab = 8 + height_thickness;
 tvclip_back_tab = 45 + height_thickness;
 tvclip_height = 50;
 tvclip_screws_ichamfer = 12;
+tvclip_carving_fillet_radius = 3;
 connector_spacing_height = 15;
 // snap tolerance
 snap_tolerance = 0.25;
@@ -67,14 +68,14 @@ module tvclip_front(lheight){
 }
 
 module tvclip_carving(){
-    translate([0, - height_thickness, mallow_depth / 2]){
+    translate([0, - height_thickness, 2 * mallow_depth / 3]){
         diff("tvclip_carving_fillets")
         // base to carve all but the wall
         cuboid(
             size = [
                 connector_spacing_width + delta,
                 tvclip_back_tab,
-                tvclip_height + delta],
+                tvclip_height - 1 * mallow_depth / 6 + delta],
             anchor = BOTTOM+BACK
         ){
             // fillets to make stronger joins
@@ -98,7 +99,7 @@ module tvclip_carving(){
 module tvclip_carving_fillet(fillet_spin){
     fillet(
         l = connector_spacing_width + 2 * delta,
-        r = 3,
+        r = tvclip_carving_fillet_radius,
         orient = RIGHT,
         spin = fillet_spin
     );
@@ -110,7 +111,7 @@ module tvclip_carving_window(window_depth){
         size = [
             connector_spacing_width - 4 * wall_thickness + delta,
             6 * wall_thickness,
-            tvclip_height - 2 * mallow_depth + delta
+            tvclip_height - 7 * mallow_depth / 6 - 1.1 * tvclip_carving_fillet_radius + delta
         ],
         rounding = 4,
         except = [FRONT, BACK],
