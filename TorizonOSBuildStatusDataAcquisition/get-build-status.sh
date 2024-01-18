@@ -11,6 +11,7 @@ JOB_LIST=(
 INFLUX_MEASUREMENT_NAME="jenkinsbuild"
 INFLUX_BUCKET_NAME="jenkinsdatabucket"
 INFLUX_BUCKET_RETENTION="30d"
+CURL_MAX_RETRIES=10
 
 if [[ -n "$DEBUG" ]]; then
     POLL_INTERVAL_SEC=60
@@ -38,7 +39,10 @@ function insert_into_influxdb() {
     for job in "${JOB_LIST[@]}"; do
         # Jenkins Embeddable Build Status strings
         # https://plugins.jenkins.io/embeddable-build-status/#plugin-content-text-variant
-        jobstatus=$(curl -s "${JENKINS_URL}?job=image-torizoncore-${job}-matrix")
+        jobstatus=$(curl \
+                        --silent --retry $CURL_MAX_RETRIES \
+                        --retry-delay 1 --retry-all-errors \
+                        "${JENKINS_URL}?job=image-torizoncore-${job}-matrix")
         if [ -n "$jobstatus" ]; then
             buildstatus="${buildstatus}${job}=\"${jobstatus}\","
             echo "Element: $job     | Value: $jobstatus"
