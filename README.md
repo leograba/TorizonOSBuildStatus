@@ -3,7 +3,9 @@
 This project collects data from the Torizon OS build pipelines and displays
 it in a dashboard in kiosk mode.
 
-![Dashboard](./.multimedia/dashboard.png?w=500)
+![TV displaying the dashboard](./.multimedia/tv.jpg)
+
+![Dashboard](./.multimedia/dashboard.png)
 
 ## How to Use ##
 
