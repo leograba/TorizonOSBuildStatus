@@ -20,7 +20,7 @@ services:
       - influxdb
 
   influxdb:
-    image: influxdb:2.7.1-alpine
+    image: leograba/torizon-os-build-status-influxdb:0.1.2
     networks:
       - influxdbnet
     environment:
@@ -33,7 +33,7 @@ services:
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
   
   grafana:
-    image: grafana/grafana:10.1.6
+    image: leograba/torizon-os-build-status-grafana:0.1.2
     networks:
       - influxdbnet
       - frontend
