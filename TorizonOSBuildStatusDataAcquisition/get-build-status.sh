@@ -47,8 +47,8 @@ function insert_into_influxdb() {
             buildstatus="${buildstatus}${job}=\"${jobstatus}\","
             echo "Element: $job     | Value: $jobstatus"
         else
-            echo "Element: $job returned an empty value, skipping this data point"
-            break
+            echo "Element: $job returned an empty value"
+            buildstatus="${buildstatus}${job}=\"Unavailable\","
         fi
     done
 

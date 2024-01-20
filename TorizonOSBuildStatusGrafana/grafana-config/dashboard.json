@@ -60,6 +60,11 @@
                     "index": 1,
                     "text": "Success"
                   },
+                  "Unavailable": {
+                    "color": "transparent",
+                    "index": 6,
+                    "text": "-"
+                  },
                   "Unstable": {
                     "color": "orange",
                     "index": 2,
@@ -162,6 +167,11 @@
                     "color": "green",
                     "index": 1,
                     "text": "Success"
+                  },
+                  "Unavailable": {
+                    "color": "transparent",
+                    "index": 6,
+                    "text": "-"
                   },
                   "Unstable": {
                     "color": "orange",
