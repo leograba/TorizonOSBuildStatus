@@ -61,9 +61,9 @@
                     "text": "Success"
                   },
                   "Unavailable": {
-                    "color": "transparent",
+                    "color": "#333333",
                     "index": 6,
-                    "text": "-"
+                    "text": "Not available"
                   },
                   "Unstable": {
                     "color": "orange",
@@ -171,7 +171,7 @@
                   "Unavailable": {
                     "color": "transparent",
                     "index": 6,
-                    "text": "-"
+                    "text": "‎"
                   },
                   "Unstable": {
                     "color": "orange",
@@ -206,7 +206,7 @@
           "legend": {
             "displayMode": "list",
             "placement": "bottom",
-            "showLegend": true
+            "showLegend": false
           },
           "rowHeight": 0.9,
           "showValue": "auto",
