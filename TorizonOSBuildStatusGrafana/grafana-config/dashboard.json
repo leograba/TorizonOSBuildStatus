@@ -114,7 +114,7 @@
               "type": "influxdb",
               "uid": "influxdb_jenkins"
             },
-            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\")\n  |> last()\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n  |> drop(columns: [\"_time\", \"_start\", \"_stop\"])",
+            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> last()\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n  |> drop(columns: [\"_time\", \"_start\", \"_stop\"])",
             "refId": "A"
           }
         ],
@@ -221,7 +221,7 @@
               "type": "influxdb",
               "uid": "influxdb_jenkins"
             },
-            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
+            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
             "refId": "A"
           }
         ],
