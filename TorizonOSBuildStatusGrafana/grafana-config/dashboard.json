@@ -221,7 +221,7 @@
               "type": "influxdb",
               "uid": "influxdb_jenkins"
             },
-            "query": "import \"date\"\nfrom(bucket: \"jenkinsdatabucket\")\n  |> range(start, stop: date.sub(from: today(), d: 5m))\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
+            "query": "import \"date\"\nfrom(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d, stop: date.sub(from: today(), d: 5m))\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
             "refId": "A"
           }
         ],
