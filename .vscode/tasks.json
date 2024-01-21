@@ -1,4 +1,42 @@
 {
     "version": "2.0.0",
-"tasks": []
+    "tasks": [
+        {
+            "label": "update-version",
+            "detail": "Update the project version on all\nworkspaces",
+            "command": "bash",
+            "type": "process",
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false,
+                "group": "update-version"
+            },
+            "options": {
+                "env": {
+                    "NEW_VERSION": "${input:getNewVersion}",
+                    "OLD_VERSION": "${config:project_version}"
+                }
+            },
+            "args": [
+                "${workspaceFolder}/.conf/update_project_version.sh",
+                "${workspaceFolder}"
+            ],
+            "dependsOrder": "sequence",
+            "icon": {
+                "id": "replace-all",
+                "color": "terminal.ansiCyan"
+            }
+        },
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "getNewVersion",
+            "description": "New project version (current is ${config:project_version})"
+          }
+    ]
 }
