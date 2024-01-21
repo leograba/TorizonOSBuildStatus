@@ -1,13 +1,13 @@
 name: Weston
 
 env:
-  wdir: TorizonOSBuildStatusWeston
+  wdir: weston
   arch: arm
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatusWeston/**'
+      - 'weston/**'
 
 jobs:
   build:

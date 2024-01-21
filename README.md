@@ -19,4 +19,4 @@ recommended that you use VS Code and install the Torizon extension.
 
 💡 for debugging the data gathering (Jenkins --> InfluxDB --> Grafana), use
 the project
-[TorizonOSBuildStatusDataAcquisition](./TorizonOSBuildStatusDataAcquisition).
+[dataAcquisition](./dataAcquisition).

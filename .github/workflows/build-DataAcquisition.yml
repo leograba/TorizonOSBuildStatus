@@ -1,13 +1,13 @@
 name: Data Acquisition App
 
 env:
-  wdir: TorizonOSBuildStatusDataAcquisition
+  wdir: dataAcquisition
   arch: arm64
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatusDataAcquisition/**'
+      - 'dataAcquisition/**'
 
 jobs:
   build:

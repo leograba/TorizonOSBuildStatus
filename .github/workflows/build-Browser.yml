@@ -1,13 +1,13 @@
 name: Browser
 
 env:
-  wdir: TorizonOSBuildStatusBrowser
+  wdir: browser
   arch: arm
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatusBrowser/**'
+      - 'browser/**'
 
 jobs:
   build:

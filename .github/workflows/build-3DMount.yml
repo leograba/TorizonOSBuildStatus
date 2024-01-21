@@ -1,12 +1,12 @@
 name: 3D Models
 
 env:
-  wdir: TorizonOSBuildStatus3DMount
+  wdir: mount3DPrinter
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatus3DMount/**'
+      - 'mount3DPrinter/**'
 
 jobs:
   build:

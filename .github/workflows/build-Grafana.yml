@@ -1,13 +1,13 @@
 name: Grafana
 
 env:
-  wdir: TorizonOSBuildStatusGrafana
+  wdir: grafana
   arch: arm64
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatusGrafana/**'
+      - 'grafana/**'
 
 jobs:
   build:

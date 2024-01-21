@@ -4,25 +4,25 @@
 			"path": "."
 		},
 		{
-			"path": "TorizonOSBuildStatusDataAcquisition"
+			"path": "dataAcquisition"
 		},
 		{
-			"path": "TorizonOSBuildStatusInfluxDB"
+			"path": "influxdb"
 		},
 		{
-			"path": "TorizonOSBuildStatusGrafana"
+			"path": "grafana"
 		},
 		{
-			"path": "TorizonOSBuildStatusWeston"
+			"path": "weston"
 		},
 		{
-			"path": "TorizonOSBuildStatusBrowser"
+			"path": "browser"
 		},
 		{
-			"path": "TorizonOSBuildStatusTCB"
+			"path": "tcb"
 		},
 		{
-			"path": "TorizonOSBuildStatus3DMount"
+			"path": "mount3DPrinter"
 		}
 	],
 	"settings": {
@@ -43,23 +43,23 @@
 				"name": "Launch Project ARMv8",
 				"configurations": [
 					{
-						"folder": "TorizonOSBuildStatusDataAcquisition",
+						"folder": "dataAcquisition",
 						"name": "Torizon ARMv8"
 					},
 					{
-						"folder": "TorizonOSBuildStatusInfluxDB",
+						"folder": "influxdb",
 						"name": "Torizon ARMv8"
 					},
 					{
-						"folder": "TorizonOSBuildStatusGrafana",
+						"folder": "grafana",
 						"name": "Torizon ARMv8"
 					},
 					{
-						"folder": "TorizonOSBuildStatusWeston",
+						"folder": "weston",
 						"name": "Torizon ARMv8"
 					},
 					{
-						"folder": "TorizonOSBuildStatusBrowser",
+						"folder": "browser",
 						"name": "Torizon ARMv8"
 					}
 				]
@@ -68,23 +68,23 @@
 				"name": "Launch Project ARMv7",
 				"configurations": [
 					{
-						"folder": "TorizonOSBuildStatusDataAcquisition",
+						"folder": "dataAcquisition",
 						"name": "Torizon ARMv7"
 					},
 					{
-						"folder": "TorizonOSBuildStatusInfluxDB",
+						"folder": "influxdb",
 						"name": "Torizon ARMv7"
 					},
 					{
-						"folder": "TorizonOSBuildStatusGrafana",
+						"folder": "grafana",
 						"name": "Torizon ARMv7"
 					},
 					{
-						"folder": "TorizonOSBuildStatusWeston",
+						"folder": "weston",
 						"name": "Torizon ARMv7"
 					},
 					{
-						"folder": "TorizonOSBuildStatusBrowser",
+						"folder": "browser",
 						"name": "Torizon ARMv7"
 					}
 				]

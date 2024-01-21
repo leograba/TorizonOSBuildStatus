@@ -1,13 +1,13 @@
 name: InfluxDB
 
 env:
-  wdir: TorizonOSBuildStatusInfluxDB
+  wdir: influxdb
   arch: arm64
 
 on:
   push:
     paths:
-      - 'TorizonOSBuildStatusInfluxDB/**'
+      - 'influxdb/**'
 
 jobs:
   build:
