@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   data-acquisition:
-    image: leograba/torizon-os-build-status-data-acquisition:0.1.3
+    image: leograba/torizon-os-build-status-data-acquisition:0.1.4
     platform: linux/arm64
     networks:
       - influxdbnet
@@ -15,7 +15,7 @@ services:
     restart: on-failure
 
   influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.1.3
+    image: leograba/torizon-os-build-status-influxdb:0.1.4
     platform: linux/arm64
     networks:
       - influxdbnet
@@ -32,7 +32,7 @@ services:
     restart: on-failure
 
   grafana:
-    image: leograba/torizon-os-build-status-grafana:0.1.3
+    image: leograba/torizon-os-build-status-grafana:0.1.4
     platform: linux/arm64
     networks:
       - influxdbnet
@@ -47,7 +47,7 @@ services:
     restart: on-failure
 
   weston:
-    image: leograba/torizon-os-build-status-weston:0.1.3
+    image: leograba/torizon-os-build-status-weston:0.1.4
     platform: linux/arm
     # Required to get udev events from host udevd via netlink
     network_mode: host
@@ -74,7 +74,7 @@ services:
     restart: on-failure
 
   browser:
-    image: leograba/torizon-os-build-status-browser:0.1.3
+    image: leograba/torizon-os-build-status-browser:0.1.4
     platform: linux/arm
     environment:
       - MACHINE
