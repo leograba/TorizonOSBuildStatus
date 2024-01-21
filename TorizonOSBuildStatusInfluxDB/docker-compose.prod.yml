@@ -1,4 +1,4 @@
 services:
   torizon-os-build-status-influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.1.5
+    image: leograba/torizon-os-build-status-influxdb:0.1.6
 version: "3.9"

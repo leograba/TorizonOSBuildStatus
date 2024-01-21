@@ -3,7 +3,7 @@ services:
     networks:
     - influxdbnet
     - frontend
-    image: leograba/torizon-os-build-status-data-acquisition:0.1.5
+    image: leograba/torizon-os-build-status-data-acquisition:0.1.6
     depends_on:
     - influxdb
     command:
@@ -14,7 +14,7 @@ services:
   influxdb:
     networks:
     - influxdbnet
-    image: leograba/torizon-os-build-status-influxdb:0.1.5
+    image: leograba/torizon-os-build-status-influxdb:0.1.6
     environment:
     - DOCKER_INFLUXDB_INIT_MODE=setup
     - DOCKER_INFLUXDB_INIT_USERNAME=torizon
@@ -29,7 +29,7 @@ services:
     - $PWD/debug/grafana-config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
     - $PWD/debug/grafana-config/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
     - $PWD/debug/grafana-config/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
-    image: leograba/torizon-os-build-status-grafana:0.1.5
+    image: leograba/torizon-os-build-status-grafana:0.1.6
     ports:
     - 3000:3000
     networks:
