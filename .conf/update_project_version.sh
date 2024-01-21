@@ -22,7 +22,12 @@ fi
 
 cd "$1" || exit
 
-find . -type f -not -path "./.git/*" -exec fgrep -l "$OLD_VERSION" {} + | xargs sed -i "s/$OLD_VERSION/$NEW_VERSION/g"
+find . \
+    '(' -name "docker-compose*yml" -o -name "settings.json" ')' \
+    -type f \
+    -not -path "./.git/*" \
+    -exec fgrep -l "$OLD_VERSION" {} + | \
+    xargs sed -i "s/$OLD_VERSION/$NEW_VERSION/g"
 
 echo "Version update from $OLD_VERSION to $NEW_VERSION"
 echo "Check your 'git diff' to make sure all went as expected"
