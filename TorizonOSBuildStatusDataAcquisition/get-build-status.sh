@@ -30,6 +30,17 @@ function cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
+function create_update_bucket() {
+    # Check if bucket already exists, get the bucket ID, and act accordingly
+    if ! influx_bucket_id=$(\
+            influx bucket list --name $INFLUX_BUCKET_NAME --json | jq -r '.[] | .id')
+    then
+        influx bucket create --name $INFLUX_BUCKET_NAME --retention $INFLUX_BUCKET_RETENTION
+    else
+        influx bucket update --id "$influx_bucket_id" --retention $INFLUX_BUCKET_RETENTION
+    fi
+}
+
 function insert_into_influxdb() {
     
     # Get data points in a line protocol format
@@ -68,7 +79,7 @@ done
 echo "InfluxDB ready!"
 
 # Create bucket with a defined retention period
-influx bucket create --name $INFLUX_BUCKET_NAME --retention $INFLUX_BUCKET_RETENTION
+create_update_bucket
 
 while true; do
     # Get data points into database
