@@ -8,6 +8,10 @@ JOB_LIST=(
     "dunfell-5.x.y-release"
     "master-extint"
 )
+IMAGE_TYPE=(
+    "tdxref"
+    "torizoncore"
+)
 INFLUX_MEASUREMENT_NAME="jenkinsbuild"
 INFLUX_BUCKET_NAME="jenkinsdatabucket"
 INFLUX_BUCKET_RETENTION="180d"
@@ -47,20 +51,22 @@ function insert_into_influxdb() {
     # https://docs.influxdata.com/influxdb/v2/get-started/write/?t=influx+CLI#line-protocol
     local buildstatus="$INFLUX_MEASUREMENT_NAME "
 
-    for job in "${JOB_LIST[@]}"; do
-        # Jenkins Embeddable Build Status strings
-        # https://plugins.jenkins.io/embeddable-build-status/#plugin-content-text-variant
-        jobstatus=$(curl \
-                        --silent --retry $CURL_MAX_RETRIES \
-                        --retry-delay 1 --retry-all-errors \
-                        "${JENKINS_URL}?job=image-torizoncore-${job}-matrix")
-        if [ -n "$jobstatus" ]; then
-            buildstatus="${buildstatus}${job}=\"${jobstatus}\","
-            echo "Element: $job     | Value: $jobstatus"
-        else
-            echo "Element: $job returned an empty value"
-            buildstatus="${buildstatus}${job}=\"Unavailable\","
-        fi
+    for image in "${IMAGE_TYPE[@]}"; do
+        for job in "${JOB_LIST[@]}"; do
+            # Jenkins Embeddable Build Status strings
+            # https://plugins.jenkins.io/embeddable-build-status/#plugin-content-text-variant
+            jobstatus=$(curl \
+                            --silent --retry $CURL_MAX_RETRIES \
+                            --retry-delay 1 --retry-all-errors \
+                            "${JENKINS_URL}?job=image-${image}-${job}-matrix")
+            if [ -n "$jobstatus" ]; then
+                buildstatus="${buildstatus}${image}-${job}=\"${jobstatus}\","
+                echo "Element: $job     | Value: $jobstatus"
+            else
+                echo "Element: $job returned an empty value"
+                buildstatus="${buildstatus}${image}-${job}=\"Unavailable\","
+            fi
+        done
     done
 
     # Remove trailing comma
