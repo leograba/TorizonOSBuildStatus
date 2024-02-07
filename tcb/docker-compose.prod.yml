@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   data-acquisition:
-    image: leograba/torizon-os-build-status-data-acquisition:0.1.6
+    image: leograba/torizon-os-build-status-data-acquisition:0.2.0
     networks:
       - influxdbnet
       - frontend
@@ -12,7 +12,7 @@ services:
     restart: on-failure
 
   influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.1.6
+    image: leograba/torizon-os-build-status-influxdb:0.2.0
     networks:
       - influxdbnet
     environment:
@@ -28,7 +28,7 @@ services:
     restart: on-failure
 
   grafana:
-    image: leograba/torizon-os-build-status-grafana:0.1.6
+    image: leograba/torizon-os-build-status-grafana:0.2.0
     networks:
       - influxdbnet
       - frontend
@@ -42,7 +42,7 @@ services:
     restart: on-failure
 
   weston:
-    image: leograba/torizon-os-build-status-weston:0.1.6
+    image: leograba/torizon-os-build-status-weston:0.2.0
     # Required to get udev events from host udevd via netlink
     network_mode: host
     volumes:
@@ -68,7 +68,7 @@ services:
     restart: on-failure
 
   browser:
-    image: leograba/torizon-os-build-status-browser:0.1.6
+    image: leograba/torizon-os-build-status-browser:0.2.0
     environment:
       - MACHINE
     security_opt:
