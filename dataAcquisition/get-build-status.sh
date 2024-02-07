@@ -46,7 +46,6 @@ function create_update_bucket() {
 }
 
 function insert_into_influxdb() {
-    
     # Get data points in a line protocol format
     # https://docs.influxdata.com/influxdb/v2/get-started/write/?t=influx+CLI#line-protocol
     local buildstatus="$INFLUX_MEASUREMENT_NAME "
@@ -59,12 +58,16 @@ function insert_into_influxdb() {
                             --silent --retry $CURL_MAX_RETRIES \
                             --retry-delay 1 --retry-all-errors \
                             "${JENKINS_URL}?job=image-${image}-${job}-matrix")
-            if [ -n "$jobstatus" ]; then
-                buildstatus="${buildstatus}${image}-${job}=\"${jobstatus}\","
-                echo "Element: $job     | Value: $jobstatus"
-            else
+            # Validate the data
+            if [ -z "$jobstatus" ]; then
                 echo "Element: $job returned an empty value"
                 buildstatus="${buildstatus}${image}-${job}=\"Unavailable\","
+            elif [[ "$jobstatus" =~ "<html>" ]]; then
+                echo "Element: $job returned an HTML page which is invalid"
+                buildstatus="${buildstatus}${image}-${job}=\"Invalid\","
+            else
+                buildstatus="${buildstatus}${image}-${job}=\"${jobstatus}\","
+                echo "Element: $job     | Value: $jobstatus"
             fi
         done
     done
