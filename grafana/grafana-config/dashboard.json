@@ -98,6 +98,10 @@
           "graphMode": "none",
           "justifyMode": "center",
           "orientation": "auto",
+          "text": {
+            "titleSize": 28,
+            "valueSize": 15
+          },
           "reduceOptions": {
             "calcs": [
               "last"
@@ -118,7 +122,7 @@
             "refId": "A"
           }
         ],
-        "title": "Torizon OS Build Status",
+        "title": "Build Status",
         "type": "stat"
       },
       {
@@ -225,11 +229,11 @@
             "refId": "A"
           }
         ],
-        "title": "Torizon OS Build History",
+        "title": "Build History",
         "type": "status-history"
       }
     ],
-    "refresh": "1h",
+    "refresh": "15m",
     "schemaVersion": 38,
     "style": "dark",
     "tags": [],
