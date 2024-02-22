@@ -13,4 +13,4 @@ FROM --platform=linux/${IMAGE_ARCH} grafana/grafana:${GRAFANA_VERSION}
 COPY grafana-config/grafana.ini /etc/grafana/grafana.ini
 COPY grafana-config/datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
 COPY grafana-config/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
-COPY grafana-config/dashboard.json /var/lib/grafana/dashboards/dashboard.json
+COPY grafana-config/dashboard.json /etc/grafana/provisioning/dashboards/dashboard.json
