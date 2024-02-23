@@ -1,4 +1,4 @@
 services:
   torizon-os-build-status-grafana:
-    image: leograba/torizon-os-build-status-grafana:0.2.1
+    image: leograba/torizon-os-build-status-grafana:0.2.2
 version: "3.9"
