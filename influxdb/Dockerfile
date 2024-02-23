@@ -1,4 +1,4 @@
-ARG INFLUXDB_VERSION=2.7.1
+ARG INFLUXDB_VERSION=2.7.5
 
 ##
 # Board architecture

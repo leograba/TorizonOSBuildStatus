@@ -1,4 +1,4 @@
-ARG BASE_VERSION=3.0.2
+ARG BASE_VERSION=3.1.0
 
 ##
 # Board architecture
