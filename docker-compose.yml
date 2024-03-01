@@ -25,6 +25,7 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=jenkinsdatabucket
       - DOCKER_INFLUXDB_INIT_RETENTION=60m
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
+      - INFLUXD_LOG_LEVEL=error
     volumes:
       - "influxdb-volume:/var/lib/influxdb2"
     restart: on-failure
