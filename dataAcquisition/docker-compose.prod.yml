@@ -1,8 +1,23 @@
 services:
-  influxdb:
+  torizon-os-build-status-data-acquisition:
+    platform: linux/arm64
+    environment:
+    - DEBUG=1
+    - DEMO=1
     networks:
     - influxdbnet
-    image: leograba/torizon-os-build-status-influxdb:0.2.2
+    - frontend
+    command:
+    - influxdb
+    - "8086"
+    depends_on:
+    - influxdb
+    image: leograba/torizon-os-build-status-data-acquisition:rc
+  influxdb:
+    image: leograba/torizon-os-build-status-influxdb:0.2.3
+    platform: linux/arm64
+    networks:
+    - influxdbnet
     environment:
     - DOCKER_INFLUXDB_INIT_MODE=setup
     - DOCKER_INFLUXDB_INIT_USERNAME=torizon
@@ -11,25 +26,15 @@ services:
     - DOCKER_INFLUXDB_INIT_BUCKET=jenkinsdatabucket
     - DOCKER_INFLUXDB_INIT_RETENTION=60m
     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
-  torizon-os-build-status-data-acquisition:
-    command:
-    - influxdb
-    - "8086"
-    networks:
-    - influxdbnet
-    - frontend
-    image: leograba/torizon-os-build-status-data-acquisition:0.2.2
-    environment:
-    - DEBUG=1
-    depends_on:
-    - influxdb
+    - INFLUXD_LOG_LEVEL=error
   grafana:
+    platform: linux/arm64
     ports:
     - 3000:3000
     networks:
     - influxdbnet
     - frontend
-    image: leograba/torizon-os-build-status-grafana:0.2.2
+    image: leograba/torizon-os-build-status-grafana:0.2.3
     depends_on:
     - influxdb
     - torizon-os-build-status-data-acquisition
@@ -39,8 +44,8 @@ services:
     - $PWD/debug/grafana-config/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
     - $PWD/debug/grafana-config/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
 networks:
-  influxdbnet:
-    internal: true
   frontend:
     internal: false
+  influxdbnet:
+    internal: true
 version: "3.9"

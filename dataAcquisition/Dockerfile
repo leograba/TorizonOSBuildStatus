@@ -9,7 +9,7 @@ FROM --platform=linux/${IMAGE_ARCH} influxdb:${INFLUXDB_VERSION}-alpine AS influ
 
 FROM --platform=linux/${IMAGE_ARCH} alpine:${ALPINE_VERSION}
 
-RUN apk add bash curl jq
+RUN apk add bash curl jq coreutils
 
 ENV INFLUX_CONFIGS_PATH /etc/influxdb2/influx-configs
 

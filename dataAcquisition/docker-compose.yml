@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   torizon-os-build-status-data-acquisition:
+    platform: linux/arm64
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,11 +17,13 @@ services:
     command: ["influxdb", "8086"]
     environment:
       - DEBUG=1 # set this variable to any value for debugging
+      - DEMO=1 # set this variable to any value for generating random data points
     depends_on:
       - influxdb
 
   influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.2.2
+    platform: linux/arm64
+    image: leograba/torizon-os-build-status-influxdb:0.2.3
     networks:
       - influxdbnet
     environment:
@@ -31,9 +34,11 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=jenkinsdatabucket
       - DOCKER_INFLUXDB_INIT_RETENTION=60m
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
+      - INFLUXD_LOG_LEVEL=error
   
   grafana:
-    image: leograba/torizon-os-build-status-grafana:0.2.2
+    platform: linux/arm64
+    image: leograba/torizon-os-build-status-grafana:0.2.3
     networks:
       - influxdbnet
       - frontend

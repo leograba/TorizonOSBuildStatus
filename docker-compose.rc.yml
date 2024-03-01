@@ -10,8 +10,8 @@ services:
     command: ["influxdb", "8086"]
     depends_on:
       - influxdb
-    #environment:
-    #  - DEBUG=1 # set this variable to any value for debugging
+    environment:
+      - DEBUG=1 # set this variable to any value for debugging
     restart: on-failure
 
   influxdb:
@@ -27,6 +27,7 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=jenkinsdatabucket
       - DOCKER_INFLUXDB_INIT_RETENTION=60m
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
+      - INFLUXD_LOG_LEVEL=error
     volumes:
       - "influxdb-storage:/var/lib/influxdb2"
     restart: on-failure
