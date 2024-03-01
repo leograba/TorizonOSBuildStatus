@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   torizon-os-build-status-data-acquisition:
+    platform: linux/arm64
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,6 +22,7 @@ services:
       - influxdb
 
   influxdb:
+    platform: linux/arm64
     image: leograba/torizon-os-build-status-influxdb:0.2.2
     networks:
       - influxdbnet
@@ -35,6 +37,7 @@ services:
       - INFLUXD_LOG_LEVEL=error
   
   grafana:
+    platform: linux/arm64
     image: leograba/torizon-os-build-status-grafana:0.2.2
     networks:
       - influxdbnet

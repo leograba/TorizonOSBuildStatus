@@ -1,5 +1,6 @@
 services:
   torizon-os-build-status-data-acquisition:
+    platform: linux/arm64
     environment:
     - DEBUG=1
     - DEMO=1
@@ -14,6 +15,7 @@ services:
     image: leograba/torizon-os-build-status-data-acquisition:rc
   influxdb:
     image: leograba/torizon-os-build-status-influxdb:0.2.2
+    platform: linux/arm64
     networks:
     - influxdbnet
     environment:
@@ -26,6 +28,7 @@ services:
     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
     - INFLUXD_LOG_LEVEL=error
   grafana:
+    platform: linux/arm64
     ports:
     - 3000:3000
     networks:
