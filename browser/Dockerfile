@@ -14,6 +14,9 @@ ARG GPU=
 # DEPLOY ------------------------------------------------------------------------
 FROM --platform=linux/${IMAGE_ARCH} torizon/chromium:${BASE_VERSION}
 
-USER root
-RUN sed -i '1 a sleep 30' /usr/bin/start-browser
-USER torizon
+# Fork of the original start-chromium.sh
+COPY start-chromium.sh /usr/bin/start-browser-carousel
+COPY start-browser-extra /usr/bin/start-browser-extra
+COPY get-next-url /usr/bin/get-next-url
+
+ENTRYPOINT ["/usr/bin/start-browser-carousel"]

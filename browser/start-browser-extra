@@ -1,0 +1,31 @@
+#!/bin/bash
+
+declare -A log_levels=([DEBUG]=0 [INFO]=1 [WARN]=2 [ERROR]=3)
+script_logging_level="INFO"
+
+# Logging function
+logger() {
+    local log_message=$1
+    local log_priority=$2
+
+    #check if level exists
+    [[ ${log_levels[$log_priority]} ]] || return 1
+
+    #check if level is enough
+    (( ${log_levels[$log_priority]} < ${log_levels[$script_logging_level]} )) && return 2
+
+    #log here
+    echo "${log_priority} : ${log_message}"
+}
+
+# Initialization checks
+if [[ -n "$RESTART_INTERVAL" ]]; then
+    TTL=${RESTART_INTERVAL}
+else
+    TTL=10800
+fi
+logger "Restart interval set to $TTL seconds" "INFO"
+
+# Wait until the timeout, then signal that the container must be restarted
+sleep "$TTL"
+kill 1
