@@ -1,12 +1,34 @@
 #!/bin/bash
 
-# List of URLs to pick from
-URL_LIST=(
-    "http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk"
-    "https://docs.toradex.com/107154-toradex-logo.svg"
+### Each app is defined by a function and must return a valid URL ###
+
+jenkins_build_status () {
+    echo "http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk"
+}
+
+tdx_br_photo () {
+    # Choose a random photo
+    [ -f "/home/torizon/.env" ] && base_url=$(grep "TDX_BR_PHOTO_BASE_URL" /home/torizon/.env)
+    [ -f "/home/torizon/tdx_br_photos.txt" ] && photo=$(shuf -n 1 /home/torizon/tdx_br_photos.txt)
+    if [[ -z $base_url || -z $photo ]]; then
+        # If something goes wrong, display the Toradex logo
+        echo "https://docs.toradex.com/107154-toradex-logo.svg"
+    else
+        echo "${base_url}${photo}"
+    fi
+}
+
+### Randomly choose app ###
+
+# List of apps to pick from
+APP_LIST=(
+    "$(jenkins_build_status)"
+    "$(tdx_br_photo)"
 )
 
-# Choose a random URL
+# Choose a random app
 RANDOM=$$$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
-URL=${URL_LIST[ $RANDOM % ${#URL_LIST[@]} ]}
+URL=${APP_LIST[ $RANDOM % ${#APP_LIST[@]} ]}
+
+# Output the URL
 echo "$URL"
