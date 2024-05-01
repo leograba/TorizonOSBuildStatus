@@ -1,6 +1,6 @@
-# Torizon OS Build Status #
+# Toradex OS Build Status #
 
-This project collects data from the Torizon OS build pipelines and displays
+This project collects data from the Toradex OS build pipelines and displays
 it in a dashboard in kiosk mode.
 
 ![TV displaying the dashboard](./.multimedia/tv.jpg)
