@@ -8,10 +8,15 @@ jenkins_build_status () {
 }
 
 tdx_br_photo () {
-    local APPNAME="tdx_br_photo"
     # Choose a random photo
-    [ -f "/home/torizon/.config/${APPNAME}/.env" ] && base_url=$(grep "TDX_BR_PHOTO_BASE_URL" /home/torizon/.env)
-    [ -f "/etc/${APPNAME}/tdx_br_photos.txt" ] && photo=$(shuf -n 1 /home/torizon/tdx_br_photos.txt)
+    local APPNAME="tdx_br_photo"
+    local ENV_PATH="/${APPNAME}/.env"
+    local PHOTOS_PATH="/etc/${APPNAME}/tdx_br_photos.txt"
+
+    # shellcheck source=/dev/null
+    [ -f "${ENV_PATH}" ] && source ${ENV_PATH}
+    base_url="$TDX_BR_PHOTO_BASE_URL"
+    [ -f "${PHOTOS_PATH}" ] && photo=$(shuf -n 1 ${PHOTOS_PATH})
     if [[ -z $base_url || -z $photo ]]; then
         # If something goes wrong, display the Toradex logo
         echo "https://docs.toradex.com/107154-toradex-logo.svg"
