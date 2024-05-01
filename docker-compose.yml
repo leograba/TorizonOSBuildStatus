@@ -89,6 +89,9 @@ services:
       - type: bind
         source: /dev/dri
         target: /dev/dri
+      - type: bind
+        source: /home/torizon/.config/tdx_br_photo
+        target: /tdx_br_photo
     depends_on:
       - weston
       - grafana
