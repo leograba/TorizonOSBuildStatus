@@ -22,7 +22,7 @@ logger() {
 if [[ -n "$RESTART_INTERVAL" ]]; then
     TTL=${RESTART_INTERVAL}
 else
-    TTL=10800
+    TTL=1800
 fi
 logger "Restart interval set to $TTL seconds" "INFO"
 
