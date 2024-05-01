@@ -79,6 +79,7 @@ services:
     platform: linux/arm
     environment:
       - MACHINE
+      #- RESTART_INTERVAL=1800 # set to override default
     security_opt:
       - seccomp:unconfined    
     networks:

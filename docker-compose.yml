@@ -74,6 +74,7 @@ services:
     image: ${DOCKER_LOGIN}/torizon-os-build-status-browser:${TAG}
     environment:
       - MACHINE
+      #- RESTART_INTERVAL=1800 # set to override default
     security_opt:
       - seccomp:unconfined
     networks:
