@@ -1,0 +1,41 @@
+#!/bin/bash
+
+### Each app is defined by a function and must return a valid URL ###
+
+jenkins_build_status () {
+    local APPNAME="jenkins_build_status"
+    echo "http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk"
+}
+
+tdx_br_photo () {
+    # Choose a random photo
+    local APPNAME="tdx_br_photo"
+    local ENV_PATH="/${APPNAME}/.env"
+    local PHOTOS_PATH="/etc/${APPNAME}/tdx_br_photos.txt"
+
+    # shellcheck source=/dev/null
+    [ -f "${ENV_PATH}" ] && source ${ENV_PATH}
+    base_url="$TDX_BR_PHOTO_BASE_URL"
+    [ -f "${PHOTOS_PATH}" ] && photo=$(shuf -n 1 ${PHOTOS_PATH})
+    if [[ -z $base_url || -z $photo ]]; then
+        # If something goes wrong, display the Toradex logo
+        echo "https://docs.toradex.com/107154-toradex-logo.svg"
+    else
+        echo "${base_url}${photo}"
+    fi
+}
+
+### Randomly choose app ###
+
+# List of apps to pick from
+APP_LIST=(
+    "$(jenkins_build_status)"
+    "$(tdx_br_photo)"
+)
+
+# Choose a random app
+RANDOM=$$$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
+URL=${APP_LIST[ $RANDOM % ${#APP_LIST[@]} ]}
+
+# Output the URL
+echo "$URL"

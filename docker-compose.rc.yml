@@ -79,6 +79,7 @@ services:
     platform: linux/arm
     environment:
       - MACHINE
+      #- RESTART_INTERVAL=1800 # set to override default
     security_opt:
       - seccomp:unconfined    
     networks:
@@ -93,6 +94,9 @@ services:
       - type: bind
         source: /dev/dri
         target: /dev/dri
+      - type: bind
+        source: /home/torizon/.config/tdx_br_photo
+        target: /tdx_br_photo
     depends_on:
       - weston
       - grafana
@@ -102,8 +106,7 @@ services:
     device_cgroup_rules:
       # ... for /dev/dri devices
       - 'c 226:* rmw'
-    command: http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk
-    restart: on-failure
+    restart: always
 
 networks:
   influxdbnet:
