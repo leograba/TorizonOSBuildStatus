@@ -6,7 +6,7 @@ input:
   # Input section items (required).
   # ⚠️ change it for your needs
   easy-installer:
-    local: torizon-core-podman-verdin-imx8mp-Tezi_6.6.0-devel-20240224231240+build.0.tar
+    local: torizon-core-podman-verdin-imx8mp-Tezi_6.7.0-devel-20240517+build.572.tar
 
 customization:
   splash-screen: splash.png
@@ -17,7 +17,7 @@ output:
   # Output section items (required).
   # ⚠️ change it for your needs
   easy-installer:
-    local: build/verdin-imx8mp-Tezi_6.6.0-devel-20240224231240
+    local: build/verdin-imx8mp-6.7.0-devel-20240517
     name: Torizon OS Build Status
     description: Dashboard that displays the status of Torizon OS builds
     accept-licence: true
@@ -26,4 +26,4 @@ output:
       compose-file: docker-compose.prod.yml
   ostree:
     branch: torizon-os-build-status-tcb
-    commit-subject: TorizonOSBuildStatusTCB-6.6.0-devel-20240224231240
+    commit-subject: TorizonOSBuildStatusTCB-6.7.0-devel-20240517
