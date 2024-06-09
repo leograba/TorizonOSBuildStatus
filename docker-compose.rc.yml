@@ -12,6 +12,7 @@ services:
       - influxdb
     environment:
       - DEBUG=1 # set this variable to any value for debugging
+      - DEMO=1 # set this variable to any value for generating random data points
     restart: on-failure
 
   influxdb:

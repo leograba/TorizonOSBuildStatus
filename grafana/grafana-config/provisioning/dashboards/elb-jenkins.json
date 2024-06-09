@@ -1,0 +1,253 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 2,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb_jenkins"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "Aborted": {
+                    "color": "super-light-red",
+                    "index": 4,
+                    "text": "Aborted"
+                  },
+                  "Failed": {
+                    "color": "red",
+                    "index": 3,
+                    "text": "Failed"
+                  },
+                  "In progress": {
+                    "color": "super-light-green",
+                    "index": 0,
+                    "text": "In progress"
+                  },
+                  "Not built": {
+                    "color": "blue",
+                    "index": 5,
+                    "text": "Not built"
+                  },
+                  "Success": {
+                    "color": "green",
+                    "index": 1,
+                    "text": "Success"
+                  },
+                  "Unavailable": {
+                    "color": "#333333",
+                    "index": 6,
+                    "text": "Not available"
+                  },
+                  "Unstable": {
+                    "color": "orange",
+                    "index": 2,
+                    "text": "Unstable"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 21,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "colorMode": "background_solid",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "text": {
+            "titleSize": 28,
+            "valueSize": 15
+          },
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "textMode": "value_and_name"
+        },
+        "pluginVersion": "10.1.6",
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb_jenkins"
+            },
+            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_field\"] =~ /tdxref.*/)\n  |> filter(fn: (r) => r[\"_value\"] != \"\")\n  |> last()\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n  |> drop(columns: [\"_time\", \"_start\", \"_stop\", \"\"])",
+            "refId": "A"
+          }
+        ],
+        "title": "Build Status",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "influxdb_jenkins"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "fillOpacity": 70,
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1
+            },
+            "mappings": [
+              {
+                "options": {
+                  "Aborted": {
+                    "color": "super-light-red",
+                    "index": 4,
+                    "text": "Aborted"
+                  },
+                  "Failed": {
+                    "color": "red",
+                    "index": 3,
+                    "text": "Failed"
+                  },
+                  "In progress": {
+                    "color": "super-light-green",
+                    "index": 0,
+                    "text": "In progress"
+                  },
+                  "Not built": {
+                    "color": "blue",
+                    "index": 5,
+                    "text": "Not built"
+                  },
+                  "Success": {
+                    "color": "green",
+                    "index": 1,
+                    "text": "Success"
+                  },
+                  "Unavailable": {
+                    "color": "transparent",
+                    "index": 6,
+                    "text": "‎"
+                  },
+                  "Unstable": {
+                    "color": "orange",
+                    "index": 2,
+                    "text": "Unstable"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 21,
+          "w": 24,
+          "x": 0,
+          "y": 21
+        },
+        "id": 1,
+        "options": {
+          "colWidth": 0.9,
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "rowHeight": 0.9,
+          "showValue": "auto",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "influxdb_jenkins"
+            },
+            "query": "import \"date\"\nfrom(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d, stop: date.sub(from: today(), d: 5m))\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_field\"] =~ /tdxref.*/)\n  |> filter(fn: (r) => r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
+            "refId": "A"
+          }
+        ],
+        "title": "Build History",
+        "type": "status-history"
+      }
+    ],
+    "refresh": "15m",
+    "schemaVersion": 38,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-30d",
+      "to": "now+12h"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "ELB Jenkins Status",
+    "uid": "elb-jenkins-status",
+    "version": 10,
+    "weekStart": ""
+  }
