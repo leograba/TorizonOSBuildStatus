@@ -11,7 +11,7 @@ services:
     depends_on:
       - influxdb
     environment:
-      - DEBUG=1 # set this variable to any value for debugging
+      - DEBUG=DEBUG # set this variable to a valid value for debugging
       - DEMO=1 # set this variable to any value for generating random data points
     restart: on-failure
 
@@ -80,7 +80,7 @@ services:
     platform: linux/arm
     environment:
       - MACHINE
-      #- RESTART_INTERVAL=1800 # set to override default
+      - RESTART_INTERVAL=90 # set to override default
     security_opt:
       - seccomp:unconfined    
     networks:

@@ -46,7 +46,8 @@ logger() {
 if [[ -n "$DEBUG" ]]; then
     POLL_INTERVAL_SEC_DEBUG=60
     POLL_INTERVAL_SEC=${POLL_INTERVAL_SEC_DEBUG}
-    logger "Debug mode enabled" "INFO"
+    script_logging_level="$DEBUG"
+    logger "Debug mode enabled. Log level set to ${script_logging_level}" "INFO"
 else
     POLL_INTERVAL_SEC=3600
     logger "Debug mode disabled" "INFO"

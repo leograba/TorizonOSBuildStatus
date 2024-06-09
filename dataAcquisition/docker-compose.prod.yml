@@ -2,7 +2,7 @@ services:
   torizon-os-build-status-data-acquisition:
     platform: linux/arm64
     environment:
-    - DEBUG=1
+    - DEBUG=DEBUG
     - DEMO=1
     networks:
     - influxdbnet
