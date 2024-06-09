@@ -44,9 +44,9 @@ services:
       - frontend
     volumes:
       - "$PWD/debug/grafana-config/grafana.ini:/etc/grafana/grafana.ini"
-      - "$PWD/debug/grafana-config/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
-      - "$PWD/debug/grafana-config/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml"
-      - "$PWD/debug/grafana-config/dashboard.json:/var/lib/grafana/dashboards/dashboard.json"
+      - "$PWD/debug/grafana-config/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
+      - "$PWD/debug/grafana-config/provisioning/dashboards/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml"
+      - "$PWD/debug/grafana-config/provisioning/dashboards/dashboard.json:/var/lib/grafana/dashboards/dashboard.json"
     ports:
       - "3000:3000"
     depends_on:
