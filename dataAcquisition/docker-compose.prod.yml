@@ -14,7 +14,7 @@ services:
     - influxdb
     image: leograba/torizon-os-build-status-data-acquisition:rc
   influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.3.0
+    image: leograba/torizon-os-build-status-influxdb:0.4.0
     platform: linux/arm64
     networks:
     - influxdbnet
@@ -34,7 +34,7 @@ services:
     networks:
     - influxdbnet
     - frontend
-    image: leograba/torizon-os-build-status-grafana:0.3.0
+    image: leograba/torizon-os-build-status-grafana:0.4.0
     depends_on:
     - influxdb
     - torizon-os-build-status-data-acquisition

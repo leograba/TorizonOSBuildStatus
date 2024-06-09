@@ -15,5 +15,5 @@
 	"torizon_app_root": "/home/torizon",
 	"tcb.packageName": "TorizonOSBuildStatusWeston",
 	"tcb.version": "3.8.1",
-	"docker_tag": "0.3.0"
+	"docker_tag": "0.4.0"
 }
