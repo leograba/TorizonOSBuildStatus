@@ -2,10 +2,18 @@
 
 JENKINS_URL="https://jenkins.int.toradex.com/buildStatus/text"
 JOB_LIST=(
+    "scarthgap-7.x.y-nightly"
+    "scarthgap-7.x.y-monthly"
+    "scarthgap-7.x.y-release"
+    "scarthgap-7.x.y-extint"
     "kirkstone-6.x.y-nightly"
+    "kirkstone-6.x.y-monthly"
     "kirkstone-6.x.y-release"
+    "kirkstone-6.x.y-extint"
     "dunfell-5.x.y-nightly"
+    "dunfell-5.x.y-monthly"
     "dunfell-5.x.y-release"
+    "dunfell-5.x.y-extint"
     "master-extint"
 )
 IMAGE_TYPE=(
