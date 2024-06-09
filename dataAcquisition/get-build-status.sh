@@ -93,13 +93,15 @@ function gen_fake_data() {
     # Get data points in a line protocol format
     # https://docs.influxdata.com/influxdb/v2/get-started/write/?t=influx+CLI#line-protocol
     local buildstatus="$INFLUX_MEASUREMENT_NAME "
+    local jobstatus=""
+    local randn="100"
 
     for image in "${IMAGE_TYPE[@]}"; do
         for job in "${JOB_LIST[@]}"; do
-            RANDOM=$$$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
-            jobstatus=${FAKES[ $RANDOM % ${#FAKES[@]} ]}
+            jobstatus=${FAKES[ $randn % ${#FAKES[@]} ]}
             buildstatus="${buildstatus}${image}-${job}=\"${jobstatus}\","
             logger "Element: $job     | Value: $jobstatus" "DEBUG"
+            ((randn++))
         done
     done
 
