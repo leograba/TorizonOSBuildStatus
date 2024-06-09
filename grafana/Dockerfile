@@ -1,4 +1,4 @@
-ARG GRAFANA_VERSION=10.3.3
+ARG GRAFANA_VERSION=10.4.3
 
 ##
 # Board architecture
