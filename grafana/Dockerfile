@@ -1,4 +1,4 @@
-ARG GRAFANA_VERSION=10.3.3
+ARG GRAFANA_VERSION=10.4.3
 
 ##
 # Board architecture
@@ -10,7 +10,4 @@ ARG IMAGE_ARCH=
 FROM --platform=linux/${IMAGE_ARCH} grafana/grafana:${GRAFANA_VERSION}
 
 # Cofigure for the current project
-COPY grafana-config/grafana.ini /etc/grafana/grafana.ini
-COPY grafana-config/datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
-COPY grafana-config/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
-COPY grafana-config/dashboard.json /etc/grafana/provisioning/dashboards/dashboard.json
+COPY grafana-config /etc/grafana

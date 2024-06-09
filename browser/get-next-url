@@ -4,12 +4,22 @@
 
 jenkins_build_status () {
     local APPNAME="jenkins_build_status"
-    echo "http://grafana:3000/d/tor-jenkins-status/tor-jenkins-status?orgId=1\&refresh=15m\&kiosk"
+
+    local DASHBOARDS=(
+        "tor-jenkins-status"
+        "elb-jenkins-status"
+    )
+
+    # Choose a random dashboard
+    local RANDOM_DASHBOARD=$$$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
+    local DBOARD=${DASHBOARDS[ $RANDOM_DASHBOARD % ${#DASHBOARDS[@]} ]}
+    echo "http://grafana:3000/d/${DBOARD}/${DBOARD}?orgId=1\&refresh=15m\&kiosk"
 }
 
 tdx_br_photo () {
     # Choose a random photo
     local APPNAME="tdx_br_photo"
+
     local ENV_PATH="/${APPNAME}/.env"
     local PHOTOS_PATH="/etc/${APPNAME}/tdx_br_photos.txt"
 

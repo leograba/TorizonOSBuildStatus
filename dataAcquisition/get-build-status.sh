@@ -2,10 +2,18 @@
 
 JENKINS_URL="https://jenkins.int.toradex.com/buildStatus/text"
 JOB_LIST=(
+    "scarthgap-7.x.y-nightly"
+    "scarthgap-7.x.y-monthly"
+    "scarthgap-7.x.y-release"
+    "scarthgap-7.x.y-extint"
     "kirkstone-6.x.y-nightly"
+    "kirkstone-6.x.y-monthly"
     "kirkstone-6.x.y-release"
+    "kirkstone-6.x.y-extint"
     "dunfell-5.x.y-nightly"
+    "dunfell-5.x.y-monthly"
     "dunfell-5.x.y-release"
+    "dunfell-5.x.y-extint"
     "master-extint"
 )
 IMAGE_TYPE=(
@@ -38,7 +46,8 @@ logger() {
 if [[ -n "$DEBUG" ]]; then
     POLL_INTERVAL_SEC_DEBUG=60
     POLL_INTERVAL_SEC=${POLL_INTERVAL_SEC_DEBUG}
-    logger "Debug mode enabled" "INFO"
+    script_logging_level="$DEBUG"
+    logger "Debug mode enabled. Log level set to ${script_logging_level}" "INFO"
 else
     POLL_INTERVAL_SEC=3600
     logger "Debug mode disabled" "INFO"
@@ -85,13 +94,15 @@ function gen_fake_data() {
     # Get data points in a line protocol format
     # https://docs.influxdata.com/influxdb/v2/get-started/write/?t=influx+CLI#line-protocol
     local buildstatus="$INFLUX_MEASUREMENT_NAME "
+    local jobstatus=""
+    local randn="100"
 
     for image in "${IMAGE_TYPE[@]}"; do
         for job in "${JOB_LIST[@]}"; do
-            RANDOM=$$$(</dev/urandom tr -dc 0-9 | dd bs=5 count=1 2>/dev/null)
-            jobstatus=${FAKES[ $RANDOM % ${#FAKES[@]} ]}
+            jobstatus=${FAKES[ $randn % ${#FAKES[@]} ]}
             buildstatus="${buildstatus}${image}-${job}=\"${jobstatus}\","
             logger "Element: $job     | Value: $jobstatus" "DEBUG"
+            ((randn++))
         done
     done
 

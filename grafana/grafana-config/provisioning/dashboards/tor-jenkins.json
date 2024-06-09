@@ -87,7 +87,7 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 9,
+          "h": 21,
           "w": 24,
           "x": 0,
           "y": 0
@@ -118,7 +118,7 @@
               "type": "influxdb",
               "uid": "influxdb_jenkins"
             },
-            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> last()\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n  |> drop(columns: [\"_time\", \"_start\", \"_stop\"])",
+            "query": "from(bucket: \"jenkinsdatabucket\")\n  |> range(start: -1h)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_field\"] =~ /torizon.*/)\n  |> filter(fn: (r) => r[\"_value\"] != \"\")\n  |> last()\n  |> pivot(rowKey:[\"_time\"], columnKey: [\"_field\"], valueColumn: \"_value\")\n  |> drop(columns: [\"_time\", \"_start\", \"_stop\", \"\"])",
             "refId": "A"
           }
         ],
@@ -199,10 +199,10 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 11,
+          "h": 21,
           "w": 24,
           "x": 0,
-          "y": 9
+          "y": 21
         },
         "id": 1,
         "options": {
@@ -225,7 +225,7 @@
               "type": "influxdb",
               "uid": "influxdb_jenkins"
             },
-            "query": "import \"date\"\nfrom(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d, stop: date.sub(from: today(), d: 5m))\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
+            "query": "import \"date\"\nfrom(bucket: \"jenkinsdatabucket\")\n  |> range(start: -30d, stop: date.sub(from: today(), d: 5m))\n  |> filter(fn: (r) => r[\"_measurement\"] == \"jenkinsbuild\" and r[\"_field\"] =~ /torizon.*/)\n  |> filter(fn: (r) => r[\"_value\"] != \"\")\n  |> aggregateWindow(every: 1d, fn: first)\n  |> map(fn: (r) => ({_time: r._time, _field: r._field, _value: r._value}))\n",
             "refId": "A"
           }
         ],
