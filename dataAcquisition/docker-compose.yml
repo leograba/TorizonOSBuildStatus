@@ -23,7 +23,7 @@ services:
 
   influxdb:
     platform: linux/arm64
-    image: leograba/torizon-os-build-status-influxdb:0.4.0
+    image: leograba/torizon-os-build-status-influxdb:0.4.1
     networks:
       - influxdbnet
     environment:
@@ -42,7 +42,7 @@ services:
   
   grafana:
     platform: linux/arm64
-    image: leograba/torizon-os-build-status-grafana:0.4.0
+    image: leograba/torizon-os-build-status-grafana:0.4.1
     networks:
       - influxdbnet
       - frontend
