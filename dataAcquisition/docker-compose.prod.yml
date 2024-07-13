@@ -27,6 +27,10 @@ services:
     - DOCKER_INFLUXDB_INIT_RETENTION=60m
     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
     - INFLUXD_LOG_LEVEL=error
+    deploy:
+      resources:
+          limits:
+            memory: 1G
   grafana:
     platform: linux/arm64
     ports:
