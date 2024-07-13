@@ -57,7 +57,7 @@ logger "Polling interval set to $POLL_INTERVAL_SEC seconds" "INFO"
 if [[ -n "$DEMO" ]]; then
     logger "Demo mode enabled" "INFO"
     logger "Generating fake data at every poll interval" "INFO"
-    FAKEDATECOUNT=30
+    FAKEDATECOUNT=190
 else
     logger "Demo mode disabled" "INFO"
 fi

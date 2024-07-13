@@ -32,6 +32,10 @@ services:
     volumes:
       - "influxdb-storage:/var/lib/influxdb2"
     restart: on-failure
+    deploy:
+      resources:
+          limits:
+            memory: 1G
 
   grafana:
     image: leograba/torizon-os-build-status-grafana:rc

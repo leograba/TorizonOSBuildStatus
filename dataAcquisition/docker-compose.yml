@@ -23,7 +23,7 @@ services:
 
   influxdb:
     platform: linux/arm64
-    image: leograba/torizon-os-build-status-influxdb:0.4.0
+    image: leograba/torizon-os-build-status-influxdb:0.4.1
     networks:
       - influxdbnet
     environment:
@@ -35,10 +35,14 @@ services:
       - DOCKER_INFLUXDB_INIT_RETENTION=60m
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
       - INFLUXD_LOG_LEVEL=error
+    deploy:
+      resources:
+          limits:
+            memory: 1G
   
   grafana:
     platform: linux/arm64
-    image: leograba/torizon-os-build-status-grafana:0.4.0
+    image: leograba/torizon-os-build-status-grafana:0.4.1
     networks:
       - influxdbnet
       - frontend

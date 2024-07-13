@@ -1,9 +1,7 @@
+version: "3.9"
 services:
   torizon-os-build-status-data-acquisition:
     platform: linux/arm64
-    environment:
-    - DEBUG=DEBUG
-    - DEMO=1
     networks:
     - influxdbnet
     - frontend
@@ -12,12 +10,35 @@ services:
     - "8086"
     depends_on:
     - influxdb
-    image: leograba/torizon-os-build-status-data-acquisition:rc
+    image: leograba/torizon-os-build-status-data-acquisition:0.4.1
+    environment:
+    - DEBUG=DEBUG
+    - DEMO=1
+  grafana:
+    platform: linux/arm64
+    volumes:
+    - $PWD/debug/grafana-config/grafana.ini:/etc/grafana/grafana.ini
+    - $PWD/debug/grafana-config/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+    - $PWD/debug/grafana-config/provisioning/dashboards/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
+    - $PWD/debug/grafana-config/provisioning/dashboards/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
+    ports:
+    - 3000:3000
+    networks:
+    - influxdbnet
+    - frontend
+    depends_on:
+    - influxdb
+    - torizon-os-build-status-data-acquisition
+    image: leograba/torizon-os-build-status-grafana:0.4.1
   influxdb:
-    image: leograba/torizon-os-build-status-influxdb:0.4.0
     platform: linux/arm64
     networks:
     - influxdbnet
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+    image: leograba/torizon-os-build-status-influxdb:0.4.1
     environment:
     - DOCKER_INFLUXDB_INIT_MODE=setup
     - DOCKER_INFLUXDB_INIT_USERNAME=torizon
@@ -27,25 +48,8 @@ services:
     - DOCKER_INFLUXDB_INIT_RETENTION=60m
     - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=T0rizonTh3Ea&IndustrialPlatform
     - INFLUXD_LOG_LEVEL=error
-  grafana:
-    platform: linux/arm64
-    ports:
-    - 3000:3000
-    networks:
-    - influxdbnet
-    - frontend
-    image: leograba/torizon-os-build-status-grafana:0.4.0
-    depends_on:
-    - influxdb
-    - torizon-os-build-status-data-acquisition
-    volumes:
-    - $PWD/debug/grafana-config/grafana.ini:/etc/grafana/grafana.ini
-    - $PWD/debug/grafana-config/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
-    - $PWD/debug/grafana-config/provisioning/dashboards/dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
-    - $PWD/debug/grafana-config/provisioning/dashboards/dashboard.json:/var/lib/grafana/dashboards/dashboard.json
 networks:
-  frontend:
-    internal: false
   influxdbnet:
     internal: true
-version: "3.9"
+  frontend:
+    internal: false
