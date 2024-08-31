@@ -28,3 +28,5 @@ recommended that you use VS Code and install the Torizon IDE extension.
 
 💡 for debugging the data gathering (Jenkins --> InfluxDB --> Grafana), use
 the sub-project `dataAcquisition`. Read the [dataAcquisition README](./dataAcquisition/.doc/README.md) for details.
+
+For debugging the GH Actions pipelines, it is recommended to use [act](https://nektosact.com/).

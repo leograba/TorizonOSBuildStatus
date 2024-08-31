@@ -3,11 +3,14 @@ name: Browser
 env:
   wdir: browser
   arch: arm
+  imgname: torizon-os-build-status-browser
 
 on:
   push:
     paths:
       - 'browser/**'
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -20,29 +23,38 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Build and push release candidate
+        uses: ./.github/actions/docker-build-push
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          context: ${{ env.wdir }}
+          imgarch: ${{ env.arch }}
+          tagname: ${{ env.imgname }}
+          tagversion: rc
+
+  release:
+    needs: [build]
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.wdir }}
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
 
       - name: Get container tag
         run: |
           echo "CONTAINER_TAG=$(jq -r '.docker_tag' .vscode/settings.json)" >> $GITHUB_ENV
 
-      - name: Build and push release candidate
-        uses: docker/build-push-action@v5
+      - name: Build and push tagged release
+        uses: ./.github/actions/docker-build-push
         with:
-          push: true
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           context: ${{ env.wdir }}
-          platforms: linux/${{ env.arch }}
-          build-args: |
-            IMAGE_ARCH=${{ env.arch }}
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/torizon-os-build-status-browser:rc
+          imgarch: ${{ env.arch }}
+          tagname: ${{ env.imgname }}
+          tagversion: ${{ env.CONTAINER_TAG }}
