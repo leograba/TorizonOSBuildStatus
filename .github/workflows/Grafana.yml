@@ -1,19 +1,19 @@
-name: InfluxDB
+name: Grafana
 
 env:
-  wdir: influxdb
+  wdir: grafana
   arch: arm64
-  imgname: torizon-os-build-status-influxdb
+  imgname: torizon-os-build-status-grafana
 
 on:
   push:
     paths:
-      - 'influxdb/**'
+      - 'grafana/**'
   release:
     types: [created]
 
 jobs:
-  build:
+  build-grafana:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,8 +33,8 @@ jobs:
           tagname: ${{ env.imgname }}
           tagversion: rc
 
-  release:
-    needs: [build]
+  release-grafana:
+    needs: [build-grafana]
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     defaults:
