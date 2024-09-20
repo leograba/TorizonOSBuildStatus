@@ -22,12 +22,28 @@ fi
 
 cd "$1" || exit
 
-find . \
-    '(' -name "docker-compose*yml" -o -name "settings.json" ')' \
-    -type f \
-    -not -path "./.git/*" \
-    -exec fgrep -l "$OLD_VERSION" {} + | \
-    xargs sed -i "s/$OLD_VERSION/$NEW_VERSION/g"
+# Replace the version string in Docker Compose files
+# shellcheck disable=SC2038
+find . -name "docker-compose*yml" \
+    -type f -not -path "./.git/*" \
+    -exec fgrep -l "$OLD_VERSION" {} + \
+    | xargs -I {} sed -i \
+    -E "s#(^\s*image: .+):$OLD_VERSION#\1:$NEW_VERSION#g" {}
 
-echo "Version update from $OLD_VERSION to $NEW_VERSION"
-echo "Check your 'git diff' to make sure all went as expected"
+# Replace the version string in settings JSON files
+# shellcheck disable=SC2038
+find . -name "settings.json" \
+    -type f -not -path "./.git/*" \
+    -exec fgrep -l "$OLD_VERSION" {} + \
+    | xargs -I {} sed -i \
+    -E "s/(^\s*\"docker_tag\": \")$OLD_VERSION(\")/\1$NEW_VERSION\2/g" {}
+
+# Replace the version string in the top-level settings JSON file
+sed -i \
+    -E "s/(^\s*\"project_version\": \")$OLD_VERSION(\")/\1$NEW_VERSION\2/g" \
+    .vscode/settings.json
+
+# Ask the user to review the changes
+git --no-pager diff
+echo "Version updated from $OLD_VERSION to $NEW_VERSION"
+echo "Check the 'git diff' above to make sure all went as expected"
