@@ -1,19 +1,19 @@
-name: Browser
+name: Data Acquisition App
 
 env:
-  wdir: browser
-  arch: arm
-  imgname: torizon-os-build-status-browser
+  wdir: dataAcquisition
+  arch: arm64
+  imgname: torizon-os-build-status-data-acquisition
 
 on:
   push:
     paths:
-      - 'browser/**'
+      - 'dataAcquisition/**'
   release:
     types: [created]
 
 jobs:
-  build:
+  build-data-acquisition:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,8 +33,8 @@ jobs:
           tagname: ${{ env.imgname }}
           tagversion: rc
 
-  release:
-    needs: [build]
+  release-data-acquisition:
+    needs: [build-data-acquisition]
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     defaults:

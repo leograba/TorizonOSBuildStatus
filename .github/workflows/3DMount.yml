@@ -9,7 +9,7 @@ on:
       - 'mount3DPrinter/**'
 
 jobs:
-  build:
+  build-3d-mount:
     runs-on: ubuntu-latest
     defaults:
       run:

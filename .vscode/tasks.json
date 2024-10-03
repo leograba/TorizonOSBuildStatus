@@ -2,8 +2,8 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "update-version",
-            "detail": "Update the project version on all\nworkspaces",
+            "label": "setup-gh-release",
+            "detail": "Prepare a release PR on\nGitHub",
             "command": "bash",
             "type": "process",
             "presentation": {
@@ -13,7 +13,7 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": false,
-                "group": "update-version"
+                "group": "setup-gh-release"
             },
             "options": {
                 "env": {
@@ -22,7 +22,7 @@
                 }
             },
             "args": [
-                "${workspaceFolder}/.conf/update_project_version.sh",
+                "${workspaceFolder}/.conf/setup_gh_release.sh",
                 "${workspaceFolder}"
             ],
             "dependsOrder": "sequence",

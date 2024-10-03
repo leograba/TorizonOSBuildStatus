@@ -22,7 +22,7 @@ IMAGE_TYPE=(
 )
 INFLUX_MEASUREMENT_NAME="jenkinsbuild"
 INFLUX_BUCKET_NAME="jenkinsdatabucket"
-INFLUX_BUCKET_RETENTION="180d"
+INFLUX_BUCKET_RETENTION="30d"
 CURL_MAX_RETRIES=30
 declare -A log_levels=([DEBUG]=0 [INFO]=1 [WARN]=2 [ERROR]=3)
 script_logging_level="INFO"

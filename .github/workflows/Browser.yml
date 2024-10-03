@@ -1,19 +1,19 @@
-name: Grafana
+name: Browser
 
 env:
-  wdir: grafana
-  arch: arm64
-  imgname: torizon-os-build-status-grafana
+  wdir: browser
+  arch: arm
+  imgname: torizon-os-build-status-browser
 
 on:
   push:
     paths:
-      - 'grafana/**'
+      - 'browser/**'
   release:
     types: [created]
 
 jobs:
-  build:
+  build-browser:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,8 +33,8 @@ jobs:
           tagname: ${{ env.imgname }}
           tagversion: rc
 
-  release:
-    needs: [build]
+  release-browser:
+    needs: [build-browser]
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     defaults:
